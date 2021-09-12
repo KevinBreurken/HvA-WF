@@ -1,0 +1,30 @@
+.navbar {
+  padding: 0;
+}
+
+.navbar-brand {
+  padding: 0;
+  margin: 0;
+}
+
+#navbar-brand-logo {
+  margin-top: -4px;
+  padding-left: 4px;
+  padding-bottom: 4px;
+}
+
+#logo-subtitle{
+  font-weight: bold;
+  font-size: 12px;
+
+  position: absolute;
+  right: 72px;
+  bottom: 4px;
+}
+
+/* navbar menu when collapsed */
+@media (max-width: 767px) {
+  .navbar-collapse {
+    clear:both;
+  }
+}
