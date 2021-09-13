@@ -1,4 +1,5 @@
 <div class="fixed-top">
+  <!-- Top Bar -->
   <div class="navbar navbar-light bg-light">
     <!-- Left Logo -->
     <a class="navbar-brand pull-left" id="navbar-brand-logo" href="#">
@@ -12,12 +13,19 @@
       <img src="assets/images/logo-school.svg" alt="school logo" height="64">
     </a>
   </div>
+  <!-- Bottom Bar -->
   <nav class="navbar navbar-buttons w-100">
     <div class=""href="#">
           <!-- Left Logo -->
       <button type="button" class="btn btn-primary pull-left">Home</button>
       <button type="button" class="btn btn-primary">My Events</button>
-      <button type="button" class="btn btn-primary">My Registrations</button>
+      <div class="dropdown">
+        <button class="btn btn-primary dropbtn">My Registrations</button>
+        <div class="dropdown-content">
+          <a href="#">Active</a>
+          <a href="#">History</a>
+        </div>
+      </div>
       <button type="button" class="btn btn-primary">My Account</button>
     </div>
     <div class="float-right">
@@ -28,3 +36,5 @@
   </nav>
 
 </div>
+
+
