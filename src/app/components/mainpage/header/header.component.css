@@ -1,6 +1,12 @@
 :host {
   display: block;
-  height: 70px;
+  height: 120px;
+  background-color: var(--background-color);
+}
+
+#navbar-top {
+  background-color: white !important;
+  border-bottom: 5px solid #f8f9fa;
 }
 
 .navbar {
@@ -20,6 +26,11 @@
 
 .navbar-buttons button:not(:last-child) {
   margin-right: 8px;
+}
+
+.navbar-buttons button {
+  border: 1px solid;
+  box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.1);
 }
 
 #navbar-brand-logo {
