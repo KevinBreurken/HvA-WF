@@ -1,5 +1,6 @@
 #first-column {
   width: 200px;
+  position: fixed;
 }
 
 #datepicker-home {
@@ -12,11 +13,15 @@
 }
 
 #second-column {
+  margin-left: 200px;
+  margin-right: 400px;
   border-radius: 8px;
 }
 
 #third-column {
   width: 400px;
+  position: fixed;
+  right: 0;
 }
 
 #home-event-details p {
