@@ -1,25 +1,47 @@
 #first-column {
   width: 200px;
+  position: fixed;
 }
 
 #datepicker-home {
   border: 1px solid rgba(0, 0, 0, 0.125);
+  width: 150px;
 }
 
-.list-group-item a {
+.list-group-item {
   color: var(--bs-dark);
   text-decoration: none;
 }
 
 #second-column {
-  border-radius: 0.25rem;
+  padding-top: 16px;
+  margin-left: 200px;
+  margin-right: 400px;
+  border-radius: 8px;
 }
 
 #third-column {
   width: 400px;
+  position: fixed;
+  right: 0;
 }
 
 #home-event-details p {
   padding-left: 20px;
   margin: 0;
 }
+
+
+.list-group-item:hover {
+  background-color: #525468 !important;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.list-group-item:hover, .list-group-item:active {
+  color: #ffffff !important;
+}
+
+.list-group-item:active {
+  background-color: #ea3f3f !important;
+}
+
