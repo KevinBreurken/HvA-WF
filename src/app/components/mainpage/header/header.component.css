@@ -1,0 +1,38 @@
+:host {
+  display: block;
+  height: 70px;
+}
+
+.navbar {
+  padding: 0 4px 0 4px;
+  background-color: #ffffff;
+}
+
+.navbar-brand {
+  padding: 0;
+  margin: 0;
+}
+
+.navbar-buttons {
+  background-color: transparent;
+  padding: 4px 4px 0 4px;
+}
+
+.navbar-buttons button:not(:last-child) {
+  margin-right: 8px;
+}
+
+#navbar-brand-logo {
+  margin-top: -4px;
+  padding-bottom: 4px;
+}
+
+#logo-subtitle {
+  font-weight: bold;
+  font-size: 12px;
+
+  position: absolute;
+  right: 72px;
+  bottom: 4px;
+}
+
