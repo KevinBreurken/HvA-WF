@@ -9,10 +9,17 @@ export class HeaderComponent implements OnInit {
 
   title = "Amsterdam Events";
   subtitleLogo = "Made at";
+
   constructor() {
+
   }
 
   ngOnInit(): void {
   }
 
+  getCurrentDate() :string{
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    // @ts-ignore
+    return new Date(Date.now()).toLocaleString('en-EN',options);
+  }
 }

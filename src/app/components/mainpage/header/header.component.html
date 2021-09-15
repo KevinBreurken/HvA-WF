@@ -2,14 +2,15 @@
   <!-- Top Bar -->
   <div class="navbar navbar-light bg-light" id="navbar-top">
     <!-- Left Logo -->
-    <a class="navbar-brand pull-left" id="navbar-brand-logo" href="#">
+    <a class="navbar-brand pull-left" id="navbar-brand-logo">
       <img src="assets/images/logo-site.svg" alt="site logo" height="64">
+      <a class="nav-subtitle" id="brand-subtitle">{{getCurrentDate()}}</a>
     </a>
     <!-- Title Text -->
     <h1>{{title}}</h1>
     <!-- Right Logo -->
     <a class="navbar-brand pull-right" href="https://www.hva.nl/">
-      <a id="logo-subtitle">{{subtitleLogo}}</a>
+      <a class="nav-subtitle" id="logo-subtitle">{{subtitleLogo}}</a>
       <img src="assets/images/logo-school.svg" alt="school logo" height="64">
     </a>
   </div>

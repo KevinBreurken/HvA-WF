@@ -38,12 +38,23 @@
   padding-bottom: 4px;
 }
 
-#logo-subtitle {
+.nav-subtitle {
   font-weight: bold;
   font-size: 12px;
 
   position: absolute;
-  right: 72px;
   bottom: 4px;
+
+  color: black;
+  text-decoration: none;
 }
+
+#logo-subtitle {
+  right: 72px;
+}
+
+#brand-subtitle {
+  left: 72px;
+}
+
 
