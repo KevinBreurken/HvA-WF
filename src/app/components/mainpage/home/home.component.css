@@ -31,7 +31,6 @@
   margin: 0;
 }
 
-
 .list-group-item:hover {
   background-color: #525468 !important;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
