@@ -1,12 +1,32 @@
-<table>
-  <tr *ngFor="let event of aEvents">
-    <td>{{event.id}}</td>
-    <td>{{event.title}}</td>
-    <td>{{event.description}}</td>
-    <td>{{event.start}}</td>
-    <td>{{event.end}}</td>
-    <td>{{event.status}}</td>
-<!--    <td *ngIf="event.isTicketed"></td>-->
-<!--    <td></td>-->
-  </tr>
-</table>
+<div id="event-table" class="bg-white m-sm-0 m-lg-5">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Title</th>
+      <th scope="col">Start</th>
+      <th scope="col">End</th>
+      <th scope="col">Status</th>
+      <th scope="col">Entrance Fee</th>
+      <th scope="col">Max Participants</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let event of aEvents">
+      <td>{{event.id}}</td>
+      <td>{{event.title}}</td>
+      <td>{{event.start}}</td>
+      <td>{{event.end}}</td>
+      <td>{{getEventStatusType[event.status]}}</td>
+
+      <td *ngIf="event.isTicketed">{{event.participationFee}}</td>
+      <td *ngIf="!event.isTicketed">Free</td>
+
+      <td *ngIf="event.isTicketed">{{event.maxParticipants}}</td>
+      <td *ngIf="!event.isTicketed"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <button (click)="addRandomEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right">Add Event</button>
+</div>

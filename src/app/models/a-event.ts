@@ -1,8 +1,8 @@
 // import {start} from "repl";
 
-enum aEventStatus {
-  DRAFT,
-  PUBLISHED,
+export enum aEventStatus {
+  DRAFT ,
+  PUBLISHED ,
   CANCELED
 }
 

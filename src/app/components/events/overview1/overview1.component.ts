@@ -1,5 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
+import { aEventStatus} from "../../../models/a-event";
 import {AEvent} from "../../../models/a-event";
 
 @Component({
@@ -14,6 +15,7 @@ export class Overview1Component implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
     this.aEvents = [];
     for (let i = 0; i < 9; i++) {
       this.addRandomEvent();
@@ -23,5 +25,10 @@ export class Overview1Component implements OnInit {
 
   addRandomEvent() {
     this.aEvents.push(AEvent.createRandomAEvent())
+  }
+
+
+  public get getEventStatusType(): typeof aEventStatus {
+    return aEventStatus;
   }
 }
