@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import {FormsModule} from "@angular/forms";
@@ -14,11 +15,12 @@ import { Overview1Component } from './components/events/overview1/overview1.comp
     HeaderComponent,
     HomeComponent,
     EventCardComponent,
-    Overview1Component
+    Overview1Component,
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

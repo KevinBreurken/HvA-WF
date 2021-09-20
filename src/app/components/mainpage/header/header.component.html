@@ -7,16 +7,20 @@
       <a class="nav-subtitle" id="brand-subtitle">{{getCurrentDate()}}</a>
     </a>
     <!-- Title Text -->
-    <h1>{{title}}</h1>
+    <h1 class="site-title">{{title}}</h1>
     <!-- Right Logo -->
-    <a class="navbar-brand pull-right" href="https://www.hva.nl/">
+    <a class="d-none d-md-block navbar-brand pull-right" href="https://www.hva.nl/">
       <a class="nav-subtitle" id="logo-subtitle">{{subtitleLogo}}</a>
       <img src="assets/images/logo-school.svg" alt="school logo" height="64">
     </a>
+    <button class="navbar-toggler d-md-none d-lg-none" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarsExampleDefault" aria-label="Toggle navigation">
+      <img src="assets/images/hamburger-menu.svg" alt="hamburger menu" height="42">
+    </button>
   </div>
+
   <!-- Bottom Bar -->
-  <nav class="navbar navbar-buttons w-100">
-    <div class=""href="#">
+  <nav class="navbar navbar-expand-md navbar-buttons w-100 bg-light">
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault" [ngbCollapse]="isCollapsed">
       <!-- Left Logo -->
       <button type="button" class="btn btn-primary pull-left">Home</button>
       <button type="button" class="btn btn-primary">My Events</button>
@@ -28,12 +32,11 @@
         </div>
       </div>
       <button type="button" class="btn btn-primary">My Account</button>
-    </div>
-    <div class="float-right">
-      <!-- Left Logo -->
+      <div class="w-100"></div>
       <button type="button" class="btn btn-primary pull-left">Sign Up</button>
       <button type="button" class="btn btn-primary">Log In</button>
     </div>
   </nav>
-
 </div>
+
+

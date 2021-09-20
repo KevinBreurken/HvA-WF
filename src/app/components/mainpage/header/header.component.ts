@@ -9,6 +9,7 @@ export class HeaderComponent implements OnInit {
 
   title = "Amsterdam Events";
   subtitleLogo = "Made at";
+  public isCollapsed = true;
 
   constructor() {
 
