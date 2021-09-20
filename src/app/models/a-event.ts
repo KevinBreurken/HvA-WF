@@ -1,4 +1,4 @@
-import {start} from "repl";
+// import {start} from "repl";
 
 enum aEventStatus {
   DRAFT,
@@ -29,17 +29,14 @@ export class AEvent {
 
     //Title
     const arrTitle: string[] = ["Swimming","Drinking","Eating","Dancing","Cooking"];
-    newEvent.title += arrTitle[Math.random()*arrTitle.length];
+    newEvent.title = "Test Title";
     //Start
     newEvent.start = new Date(+(new Date()) - Math.floor(Math.random() * 10000000000));
     //End
     newEvent.end = new Date(+(new Date()) - Math.floor(Math.random() * 10000000000));
 
     //Description
-    const arrDescription: string[] = ["This ","Dummy ","Text ","To "];
-    for (let i = 0; i < (Math.random() * 100); i++) {
-      newEvent.description += arrDescription[Math.random() * arrDescription.length];
-    }
+    newEvent.description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos eveniet ipsam iste iure labore laudantium maxime neque pariatur perferendis, ut?";
 
     newEvent.status = Math.floor(Math.random() * 3); //Event status
 

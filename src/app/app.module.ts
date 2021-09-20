@@ -6,13 +6,15 @@ import {FormsModule} from "@angular/forms";
 import { HeaderComponent } from './components/mainpage/header/header.component';
 import { HomeComponent } from './components/mainpage/home/home.component';
 import { EventCardComponent } from './components/mainpage/event-card/event-card.component';
+import { Overview1Component } from './components/events/overview1/overview1.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     HomeComponent,
-    EventCardComponent
+    EventCardComponent,
+    Overview1Component
   ],
   imports: [
     BrowserModule,
