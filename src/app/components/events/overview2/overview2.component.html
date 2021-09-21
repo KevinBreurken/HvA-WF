@@ -6,11 +6,12 @@
       <div class="list-group">
         <a *ngFor="let event of aEvents" (click)="onEventClicked(event)" href="#" class="list-group-item list-group-item-action">{{event.title}}</a>
       </div>
+      <button (click)="addRandomEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right">Add Event</button>
     </div>
 
     <!-- column 2 -->
     <div class="col bg-white d-flex flex-wrap w-100" id="second-column">
-      <app-detail2></app-detail2>
+      <app-detail2 [event]="selectedAEvent"></app-detail2>
     </div>
   </div>
 </div>
