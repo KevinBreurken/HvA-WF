@@ -1,0 +1,16 @@
+<div class="container-fluid bg-light" style="min-height: 100%">
+  <div class="row">
+    <!-- column 1 -->
+    <div class="col-2 p-4">
+      <p><b>Overview of all events:</b></p>
+      <div class="list-group">
+        <a *ngFor="let event of aEvents" (click)="onEventClicked(event)" href="#" class="list-group-item list-group-item-action">{{event.title}}</a>
+      </div>
+    </div>
+
+    <!-- column 2 -->
+    <div class="col bg-white d-flex flex-wrap w-100" id="second-column">
+      <app-detail2></app-detail2>
+    </div>
+  </div>
+</div>

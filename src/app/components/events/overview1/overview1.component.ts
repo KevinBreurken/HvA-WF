@@ -20,7 +20,6 @@ export class Overview1Component implements OnInit {
     for (let i = 0; i < 9; i++) {
       this.addRandomEvent();
     }
-    console.log(this.aEvents)
   }
 
   addRandomEvent() {
