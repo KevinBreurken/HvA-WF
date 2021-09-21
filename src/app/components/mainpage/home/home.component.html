@@ -3,11 +3,11 @@
 
     <!-- column 1 -->
     <div class="col-2 p-4" id="first-column">
-      <label for="datepicker-home" class="mb-2">Pick a date</label>
+      <label for="datepicker-home" class="mb-2"><b>Pick a date</b></label>
       <input type="date" id="datepicker-home"> <!-- min, max, value, name -->
 
       <div class="mt-4">
-        <p>Pick a category</p>
+        <p><b>Pick a category</b></p>
         <ul class="list-group">
           <a href="http://www.google.com" target="_blank" class="list-group-item">Sports</a>
           <a href="http://www.google.com" target="_blank" class="list-group-item">Markets</a>
@@ -21,7 +21,7 @@
     </div>
 
     <!-- column 2 -->
-    <div class="col bg-white d-flex flex-md-wrap justify-content-center" id="second-column">
+    <div class="col bg-white d-flex flex-wrap justify-content-center w-100" id="second-column">
       <app-event-card></app-event-card>
       <app-event-card></app-event-card>
       <app-event-card></app-event-card>
@@ -34,7 +34,7 @@
     </div>
 
     <!-- column 3 -->
-    <div class="col-3 p-4" id="third-column">
+    <div class="d-none d-lg-block col-3 p-4" id="third-column">
       <h4 class="fw-bold pb-1">Name of Event</h4>
       <div id="home-event-details">
         <p class="text-secondary">Details</p>

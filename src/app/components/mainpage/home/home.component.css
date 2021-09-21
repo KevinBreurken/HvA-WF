@@ -1,3 +1,9 @@
+@media (min-width: 992px) {
+  #second-column {
+    margin-right: 400px;
+  }
+}
+
 #first-column {
   width: 200px;
   position: fixed;
@@ -16,7 +22,6 @@
 #second-column {
   padding-top: 16px;
   margin-left: 200px;
-  margin-right: 400px;
   border-radius: 8px;
 }
 
