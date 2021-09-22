@@ -4,6 +4,10 @@
   background-color: var(--background-color);
 }
 
+.site-title {
+  margin: 8px;
+}
+
 #navbar-top {
   background-color: white !important;
   border-bottom: 5px solid #f8f9fa;
@@ -28,9 +32,16 @@
   margin-right: 8px;
 }
 
-.navbar-buttons button {
+.navbar-buttons button:not(.navbar-toggler) {
   border: 1px solid;
   box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.1);
+  min-width: fit-content;
+  margin-bottom: 8px;
+  outline: none !important;
+}
+
+.navbar-buttons .dropdown {
+  min-width: fit-content;
 }
 
 #navbar-brand-logo {
@@ -38,12 +49,34 @@
   padding-bottom: 4px;
 }
 
-#logo-subtitle {
+.nav-subtitle {
   font-weight: bold;
   font-size: 12px;
 
   position: absolute;
-  right: 72px;
   bottom: 4px;
+
+  color: black;
+  text-decoration: none;
 }
 
+#logo-subtitle {
+  right: 72px;
+}
+
+#brand-subtitle {
+  left: 72px;
+}
+
+.navbar-toggler {
+  margin-left: auto;
+}
+
+.navbar-toggler,
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+  border: none !important;
+  outline: none;
+  box-shadow: none;
+}

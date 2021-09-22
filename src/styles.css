@@ -3,6 +3,11 @@
   --background-color: #f8f9fa;
 }
 
+.default-panel {
+  margin: 8px 8px 8px 8px;
+  border-radius: 8px;
+}
+
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
   background-color: #ffffff !important;
   color: #000000 !important;
