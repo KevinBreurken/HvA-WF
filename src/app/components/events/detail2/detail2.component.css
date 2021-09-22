@@ -1,0 +1,6 @@
+textarea {
+  overflow: hidden;
+  overflow-wrap: break-word;
+  resize: none;
+  height: 62px;
+}

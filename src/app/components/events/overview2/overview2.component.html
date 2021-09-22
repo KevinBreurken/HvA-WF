@@ -4,9 +4,9 @@
     <div class="col-2 p-4">
       <p><b>Overview of all events:</b></p>
       <div class="list-group">
-        <a *ngFor="let event of aEvents" (click)="onEventClicked(event)" href="#" class="list-group-item list-group-item-action">{{event.title}}</a>
+        <a *ngFor="let event of aEvents" (click)="onEventClicked(event)" href="#" [ngClass]="event == selectedAEvent ? 'active' : ''" class="list-group-item list-group-item-action">{{event.title}}</a>
       </div>
-      <button (click)="addRandomEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right">Add Event</button>
+      <button (click)="onAddEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right">Add Event</button>
     </div>
 
     <!-- column 2 -->

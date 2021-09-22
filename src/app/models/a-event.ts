@@ -10,7 +10,7 @@ export class AEvent {
   static nextAvailableId = 20001;
 
   id: number;
-  title: String = "";
+  title: String = "new Event";
   start: Date = new Date();
   end: Date = new Date();
   description: String = "";

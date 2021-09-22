@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {AEvent} from "../../../models/a-event";
+// import {AEventStatus} from "../../../models/a-event-status";
+
 
 @Component({
   selector: 'app-detail2',
@@ -10,9 +12,10 @@ export class Detail2Component implements OnInit {
 
   @Input() event : AEvent | undefined;
 
+  // @Input() AEventStatusEnum : AEventStatus | undefined;
+
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }
