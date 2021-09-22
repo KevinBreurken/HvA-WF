@@ -11,7 +11,7 @@
 
     <!-- column 2 -->
     <div class="col bg-white d-flex flex-wrap w-100 default-panel">
-      <app-detail2 [event]="selectedAEvent"></app-detail2>
+      <app-detail2 (eventOutput)="testEvent($event)" [event]="selectedAEvent"></app-detail2>
     </div>
   </div>
 </div>

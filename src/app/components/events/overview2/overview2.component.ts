@@ -37,4 +37,8 @@ export class Overview2Component implements OnInit {
     this.selectedAEvent = event;
   }
 
+  testEvent(event: AEvent) {
+    this.aEvents.splice(this.aEvents.indexOf(event), 1)
+    this.selectedAEvent = null;
+  }
 }

@@ -1,7 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import {AEvent} from "../../../models/a-event";
-// import {AEventStatus} from "../../../models/a-event-status";
-
 
 @Component({
   selector: 'app-detail2',
@@ -11,11 +9,16 @@ import {AEvent} from "../../../models/a-event";
 export class Detail2Component implements OnInit {
 
   @Input() event : AEvent | undefined;
+  @Output() eventOutput = new EventEmitter<AEvent>();
 
   // @Input() AEventStatusEnum : AEventStatus | undefined;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onDeleteEvent(){
+    this.eventOutput.emit(this.event);
   }
 }
