@@ -6,6 +6,7 @@
 .list-group-item.active{
   background-color: #ea3f3f !important;
   border-color: #ea3f3f !important;
+  font-weight: bold;
 }
 
 .default-panel {
