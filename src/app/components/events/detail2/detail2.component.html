@@ -18,14 +18,8 @@
         <label for="inputState">State</label>
         <select id="inputState" class="form-control" [(ngModel)]="event.status" name="state">
           <option selected>Choose...</option>
-<!--          <option>DRAFT</option>-->
-<!--          <option>PUBLISHED</option>-->
-<!--          <option>CANCELED</option>-->
           <option *ngFor="let value of selectValues" [value]="value">{{value.valueOf()}}</option>
         </select>
-<!--        <div *ngFor="let item of AEventStatusEnum">-->
-<!--          {{ item }}-->
-<!--        </div>-->
         <div class="form-check">
           <input type="checkbox" class="form-check-input" id="exampleCheck1" name="isTicketed" [(ngModel)]="event.isTicketed">
           <label class="form-check-label" for="exampleCheck1">Is Ticketed</label>
@@ -42,7 +36,6 @@
           <input type="number" class="form-control"
                  placeholder="Enter participation fee" name="{{event.maxParticipants}}" [(ngModel)]="event.maxParticipants">
         </div>
-
 
         <button (click)="onDeleteEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right">Delete Event</button>
       </form>

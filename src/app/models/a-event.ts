@@ -1,5 +1,3 @@
-// import {start} from "repl";
-
 export enum aEventStatus {
   DRAFT = "DRAFT",
   PUBLISHED = "PUBLISHED",
