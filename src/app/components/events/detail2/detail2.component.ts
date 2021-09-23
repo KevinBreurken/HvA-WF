@@ -1,5 +1,5 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import {AEvent} from "../../../models/a-event";
+import {AEvent, aEventStatus} from "../../../models/a-event";
 
 @Component({
   selector: 'app-detail2',
@@ -10,6 +10,8 @@ export class Detail2Component implements OnInit {
 
   @Input() event : AEvent | undefined;
   @Output() eventOutput = new EventEmitter<AEvent>();
+
+  selectValues = Object.values(aEventStatus)
 
   constructor() { }
 

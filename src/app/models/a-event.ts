@@ -1,9 +1,9 @@
 // import {start} from "repl";
 
 export enum aEventStatus {
-  DRAFT ,
-  PUBLISHED ,
-  CANCELED
+  DRAFT = "DRAFT",
+  PUBLISHED = "PUBLISHED",
+  CANCELED = "CANCELED"
 }
 
 export class AEvent {
@@ -38,7 +38,7 @@ export class AEvent {
     //Description
     newEvent.description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos eveniet ipsam iste iure labore laudantium maxime neque pariatur perferendis, ut?";
 
-    newEvent.status = Math.floor(Math.random() * 3); //Event status
+    newEvent.status = <aEventStatus>Object.keys(aEventStatus)[Math.floor(Math.random() * 3)];
 
     newEvent.isTicketed = Math.random() >= 0.5;
     if (newEvent.isTicketed) {
