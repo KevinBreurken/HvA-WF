@@ -3,6 +3,11 @@
   --background-color: #f8f9fa;
 }
 
+.list-group-item.active{
+  background-color: #ea3f3f !important;
+  border-color: #ea3f3f !important;
+}
+
 .default-panel {
   margin: 8px 8px 8px 8px;
   border-radius: 8px;

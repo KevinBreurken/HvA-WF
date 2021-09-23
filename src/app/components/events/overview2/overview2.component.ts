@@ -24,7 +24,7 @@ export class Overview2Component implements OnInit {
 
   onAddEvent() {
     this.addRandomEvent();
-
+    //Select the last event.
     this.onEventClicked(this.aEvents[this.aEvents.length - 1]);
   }
 

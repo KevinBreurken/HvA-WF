@@ -11,8 +11,6 @@ export class Detail2Component implements OnInit {
   @Input() event : AEvent | undefined;
   @Output() eventOutput = new EventEmitter<AEvent>();
 
-  // @Input() AEventStatusEnum : AEventStatus | undefined;
-
   constructor() { }
 
   ngOnInit(): void {

@@ -1,7 +1,7 @@
 <div class="container-fluid bg-light" style="min-height: 100%">
   <div class="row">
     <!-- column 1 -->
-    <div class="col-2 p-4">
+    <div class="col-2 p-4 event-list">
       <p><b>Overview of all events:</b></p>
       <div class="list-group">
         <a *ngFor="let event of aEvents" (click)="onEventClicked(event)" href="#" [ngClass]="event == selectedAEvent ? 'active' : ''" class="list-group-item list-group-item-action">{{event.title}}</a>
