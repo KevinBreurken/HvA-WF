@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {AEventsService} from "./services/a-events.service";
 
 @Component({
   selector: 'app-root',

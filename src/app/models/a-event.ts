@@ -26,6 +26,7 @@ export class AEvent {
     let newEvent = new AEvent();
 
     //Title
+    //TODO: Add random title
     const arrTitle: string[] = ["Swimming","Drinking","Eating","Dancing","Cooking"];
     newEvent.title = "Test Title";
     //Start
