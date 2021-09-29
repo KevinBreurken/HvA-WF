@@ -5,11 +5,12 @@ import {AEvent} from "../models/a-event";
   providedIn: 'root'
 })
 export class AEventsService {
-  
-  public aEventsList: AEvent[];
+
+  private aEventsList: AEvent[];
 
   constructor() {
     this.aEventsList = [];
+
     for (let i = 0; i < 9; i++) {
       this.aEventsList.push(AEvent.createRandomAEvent());
     }
@@ -35,6 +36,7 @@ export class AEventsService {
 
   deleteById(eId: number): AEvent | null {
     const eventToDelete = this.findById(eId);
+
     if (eventToDelete) {
       this.aEventsList.splice(
         this.aEventsList.indexOf(eventToDelete),

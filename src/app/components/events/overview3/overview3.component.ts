@@ -13,18 +13,24 @@ export class Overview3Component implements OnInit {
   // public aEvents: AEvent[] = []
   public selectedAEvent: any = null;
 
-  //TODO: Ask how to make this accessible in overview3 view, without using public.
-  constructor(public aEventService: AEventsService) {
+  constructor(private aEventService: AEventsService) {
   }
 
   ngOnInit(): void {
+    // this.aEvents = this.aEventService.findAll()
+  }
+
+  allEvents() {
+    return this.aEventService.findAll()
   }
 
   onAddEvent() {
     //Add a random event.
-    this.aEventService.aEventsList.push(AEvent.createRandomAEvent());
+    this.aEventService.findAll().push(AEvent.createRandomAEvent());
     //Select the last event.
-    this.onEventClicked(this.aEventService.aEventsList[this.aEventService.aEventsList.length-1])
+    this.onEventClicked(
+      this.aEventService.findAll()[this.aEventService.findAll().length-1]
+    )
   }
 
   onEventClicked(event: AEvent) {
