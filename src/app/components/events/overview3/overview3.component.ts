@@ -10,35 +10,31 @@ import {AEventsService} from "../../../services/a-events.service";
 })
 export class Overview3Component implements OnInit {
 
-  // public aEvents: AEvent[] = []
-  public selectedAEvent: any = null;
+  public selectedAEventId: number = -1;
 
   constructor(private aEventService: AEventsService) {
   }
 
   ngOnInit(): void {
-    // this.aEvents = this.aEventService.findAll()
   }
 
   allEvents() {
-    return this.aEventService.findAll()
+    return this.aEventService.findAll();
   }
 
   onAddEvent() {
     //Add a random event.
     this.aEventService.findAll().push(AEvent.createRandomAEvent());
     //Select the last event.
-    this.onEventClicked(
-      this.aEventService.findAll()[this.aEventService.findAll().length-1]
-    )
+    this.onEventClicked(this.aEventService.findAll()[this.aEventService.findAll().length-1]);
   }
 
   onEventClicked(event: AEvent) {
-    this.selectedAEvent = event;
+    this.selectedAEventId = event.id;
   }
 
-  removeEvent(event: AEvent) {
-    this.aEventService.deleteById(event.id);
-    this.selectedAEvent = null;
+  removeEvent(eventId: number) {
+    this.aEventService.deleteById(eventId);
+    this.selectedAEventId = -1;
   }
 }

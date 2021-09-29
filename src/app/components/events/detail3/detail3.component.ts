@@ -1,5 +1,6 @@
 import {Component, Input, Output, OnInit, EventEmitter, Inject} from '@angular/core';
 import {AEvent, aEventStatus} from "../../../models/a-event";
+import {AEventsService} from "../../../services/a-events.service";
 
 @Component({
   selector: 'app-detail3',
@@ -8,17 +9,22 @@ import {AEvent, aEventStatus} from "../../../models/a-event";
 })
 export class Detail3Component implements OnInit {
 
-  @Input() event : AEvent | undefined;
-  @Output() eventOutput = new EventEmitter<AEvent>();
+  @Input() editedAEventId: number = -1;
+  @Output() eventIdOutput = new EventEmitter<number>();
 
-  selectValues = Object.values(aEventStatus)
+  selectValues = Object.values(aEventStatus);
 
-  constructor() { }
+  constructor(private aEventService: AEventsService) {
+  }
 
   ngOnInit(): void {
   }
 
-  onDeleteEvent(){
-    this.eventOutput.emit(this.event);
+  getCurrentEvent(): AEvent {
+    return <AEvent>this.aEventService.findById(this.editedAEventId);
+  }
+
+  onDeleteEvent() {
+    this.eventIdOutput.emit(this.editedAEventId);
   }
 }
