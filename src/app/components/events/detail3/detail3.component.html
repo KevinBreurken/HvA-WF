@@ -37,7 +37,11 @@
                  placeholder="Enter participation fee" name="{{eventToEdit.maxParticipants}}" [(ngModel)]="eventToEdit.maxParticipants">
         </div>
 
-        <button (click)="onDeleteEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right">Delete Event</button>
+        <button (click)="onDeleteEvent()" type="button" class="m-2 btn btn-success border-dark float-right">Save</button>
+        <button (click)="onClearEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right">Clear</button>
+        <button (click)="onResetEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right">Reset</button>
+        <button (click)="onCancelEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right">Cancel</button>
+        <button (click)="onDeleteEvent()" type="button" class="m-2 btn btn-danger border-dark float-right">Delete</button>
       </form>
     </div>
   </div>

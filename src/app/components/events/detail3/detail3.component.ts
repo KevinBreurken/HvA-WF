@@ -30,6 +30,18 @@ export class Detail3Component implements OnInit, OnChanges {
     this.eventIdOutput.emit(this.editedAEventId);
   }
 
+  onClearEvent() {
+
+  }
+
+  onResetEvent() {
+
+  }
+
+  onCancelEvent() {
+
+  }
+  
   ngOnChanges(): void {
     this.eventToEdit = JSON.parse(JSON.stringify(this.aEventService.findById(this.editedAEventId)));
   }
