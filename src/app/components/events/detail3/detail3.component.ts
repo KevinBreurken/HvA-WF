@@ -10,7 +10,8 @@ import {AEventsService} from "../../../services/a-events.service";
 export class Detail3Component implements OnInit, OnChanges {
 
   @Input() editedAEventId: number = -1;
-  @Output() eventIdOutput = new EventEmitter<number>();
+  @Output() removeOutput = new EventEmitter<number>();
+  @Output() cancelOutput = new EventEmitter<number>();
 
   eventToEdit: AEvent = new AEvent();
 
@@ -27,23 +28,19 @@ export class Detail3Component implements OnInit, OnChanges {
   }
 
   onDeleteEvent() {
-    this.eventIdOutput.emit(this.editedAEventId);
+    this.removeOutput.emit(this.editedAEventId);
   }
 
   onClearEvent() {
-    // console.log(this.eventToEdit)
-    // console.log(this.eventToEdit.id)
     this.eventToEdit.clear();
-
   }
 
   onResetEvent() {
-    this.eventToEdit = <AEvent>JSON.parse(JSON.stringify(this.aEventService.findById(this.editedAEventId)));
-    // console.log(this.eventToEdit)
+    this.eventToEdit = Object.create(this.aEventService.findById(this.editedAEventId));
   }
 
   onCancelEvent() {
-
+    this.cancelOutput.emit(this.editedAEventId);
   }
 
   ngOnChanges(): void {

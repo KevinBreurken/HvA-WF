@@ -12,7 +12,7 @@
 
     <!-- column 2 -->
     <div class="col bg-white d-flex flex-wrap w-100 default-panel">
-      <app-detail3 (eventIdOutput)="removeEvent($event)" [editedAEventId]="selectedAEventId"></app-detail3>
+      <app-detail3 (cancelOutput)="cancelEvent($event)" (removeOutput)="removeEvent($event)" [editedAEventId]="selectedAEventId"></app-detail3>
     </div>
   </div>
 </div>

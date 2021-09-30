@@ -30,6 +30,12 @@
   background-color: #ea3f3f !important;
 }
 
+.btn:disabled{
+  color: black !important;
+  border:none;
+  background-color: white !important;
+}
+
 .btn:focus {
   outline: none !important;
   box-shadow: none !important;
