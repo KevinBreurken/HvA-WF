@@ -31,14 +31,19 @@ export class Detail3Component implements OnInit, OnChanges {
 
   public getCanReset() {return this.canReset}
 
+  public getCanDelete() {return this.canDelete}
+
   onEdit() {
     this.canSave = true;
     this.canReset = true;
+    this.canDelete = false;
   }
 
   onSaveEvent() {
     this.aEventService.save(this.eventToEdit);
     this.canSave = false;
+    this.canReset = false;
+    this.canDelete = true;
   }
 
   onDeleteEvent() {
@@ -51,6 +56,9 @@ export class Detail3Component implements OnInit, OnChanges {
 
   onResetEvent() {
     this.eventToEdit = Object.create(this.aEventService.findById(this.editedAEventId));
+    this.canSave = false;
+    this.canReset = false;
+    this.canDelete = true;
   }
 
   onCancelEvent() {

@@ -41,7 +41,7 @@
         <button (click)="onClearEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right">Clear</button>
         <button (click)="onCancelEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right">Cancel</button>
         <button (click)="onResetEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right" [disabled]="!getCanReset()">Reset</button>
-        <button (click)="onDeleteEvent()" type="button" class="m-2 btn btn-danger border-dark float-right" disabled>Delete</button>
+        <button (click)="onDeleteEvent()" type="button" class="m-2 btn btn-danger border-dark float-right" [disabled]="!getCanDelete()">Delete</button>
       </form>
     </div>
   </div>
