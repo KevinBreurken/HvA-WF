@@ -16,7 +16,7 @@
           <textarea class="form-control autosize" id="bio" placeholder="Write something about the event" name="description" [(ngModel)]="eventToEdit.description"></textarea>
         </div>
         <label for="inputState">State</label>
-        <select id="inputState" class="form-control" [(ngModel)]="eventToEdit.status" name="state">
+        <select id="inputState" class="form-control" [(ngModel)]="eventToEdit.status" name="state" (change)="onEdit()">
           <option selected>Choose...</option>
           <option *ngFor="let value of selectValues" [value]="value">{{value.valueOf()}}</option>
         </select>
@@ -40,7 +40,7 @@
         <button (click)="onSaveEvent()" type="button" class="m-2 btn btn-success border-dark float-right" [disabled]="!getCanSave()">Save</button>
         <button (click)="onClearEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right">Clear</button>
         <button (click)="onCancelEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right">Cancel</button>
-        <button (click)="onResetEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right" disabled>Reset</button>
+        <button (click)="onResetEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right" [disabled]="!getCanReset()">Reset</button>
         <button (click)="onDeleteEvent()" type="button" class="m-2 btn btn-danger border-dark float-right" disabled>Delete</button>
       </form>
     </div>
