@@ -34,6 +34,7 @@ export class Detail3Component implements OnInit, OnChanges {
   onEdit() {
     if (this.editedAEventId !== -1)
       this.edited = this.eventToEdit.equals(<AEvent>this.aEventService.findById(this.editedAEventId));
+
   }
 
   onSaveEvent() {
@@ -41,23 +42,34 @@ export class Detail3Component implements OnInit, OnChanges {
   }
 
   onDeleteEvent() {
+    if(!confirm("Do you want to delete the selected event?"))
+      return;
+
     this.removeOutput.emit(this.editedAEventId);
   }
 
   onClearEvent() {
+    if(!confirm("Do you want to clear the selected event?"))
+      return;
     this.eventToEdit.clear();
   }
 
   onResetEvent() {
+    if(!confirm("Do you want to reset the selected event?"))
+      return;
+
     this.eventToEdit = Object.create(this.aEventService.findById(this.editedAEventId));
   }
 
   onCancelEvent() {
+    if(!confirm("Do you want to deselect the event that you've currently selected?"))
+      return;
+
     this.cancelOutput.emit(this.editedAEventId);
   }
 
   ngOnChanges(): void {
-    this.onResetEvent();
+    this.eventToEdit = Object.create(this.aEventService.findById(this.editedAEventId));
     this.onEdit();
   }
 
