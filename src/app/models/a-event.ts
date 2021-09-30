@@ -26,8 +26,6 @@ export class AEvent {
     let newEvent = new AEvent();
 
     //Title
-    //TODO: Add random title
-    const arrTitle: string[] = ["Swimming","Drinking","Eating","Dancing","Cooking"];
     newEvent.title = "Test Title";
     //Start
     newEvent.start = new Date(+(new Date()) - Math.floor(Math.random() * 10000000000));
@@ -60,5 +58,26 @@ export class AEvent {
     this.isTicketed = false;
     this.participationFee = 0;
     this.maxParticipants = 0;
+  }
+
+  public equals(other: AEvent) {
+
+    if (this.title !== other.title)
+      return false;
+
+    if (this.description !== other.description)
+      return false;
+
+    if (this.status !== other.status)
+      return false;
+
+    if(this.isTicketed !== other.isTicketed)
+      return false;
+
+    if(this.participationFee !== other.participationFee)
+      return false;
+
+    return this.maxParticipants === other.maxParticipants;
+
   }
 }

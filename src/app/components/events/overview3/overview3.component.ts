@@ -36,11 +36,15 @@ export class Overview3Component implements OnInit {
 
 
   cancelEvent(eventId: number) {
-    this.selectedAEventId = -1;
+    this.deselectEventSelection();
   }
 
   removeEvent(eventId: number) {
     this.aEventService.deleteById(eventId);
+    this.deselectEventSelection();
+  }
+
+  deselectEventSelection(){
     this.selectedAEventId = -1;
   }
 }

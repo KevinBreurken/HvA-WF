@@ -14,12 +14,9 @@ export class Detail3Component implements OnInit, OnChanges {
   @Output() cancelOutput = new EventEmitter<number>();
 
   eventToEdit: AEvent = new AEvent();
+  edited: boolean = false;
 
   selectValues = Object.values(aEventStatus);
-
-  private canSave: boolean = false;
-  private canReset: boolean = false;
-  private canDelete: boolean = true;
 
   constructor(private aEventService: AEventsService) {
   }
@@ -27,23 +24,20 @@ export class Detail3Component implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
-  public getCanSave() {return this.canSave}
+  public isEdited() {
+    return this.edited;
+  }
 
-  public getCanReset() {return this.canReset}
-
-  public getCanDelete() {return this.canDelete}
-
+  /**
+   * Compares if selected event equals the edited event.
+   */
   onEdit() {
-    this.canSave = true;
-    this.canReset = true;
-    this.canDelete = false;
+    if (this.editedAEventId !== -1)
+      this.edited = this.eventToEdit.equals(<AEvent>this.aEventService.findById(this.editedAEventId));
   }
 
   onSaveEvent() {
     this.aEventService.save(this.eventToEdit);
-    this.canSave = false;
-    this.canReset = false;
-    this.canDelete = true;
   }
 
   onDeleteEvent() {
@@ -56,9 +50,6 @@ export class Detail3Component implements OnInit, OnChanges {
 
   onResetEvent() {
     this.eventToEdit = Object.create(this.aEventService.findById(this.editedAEventId));
-    this.canSave = false;
-    this.canReset = false;
-    this.canDelete = true;
   }
 
   onCancelEvent() {
@@ -67,8 +58,7 @@ export class Detail3Component implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     this.onResetEvent();
-    this.canSave = false;
-    this.canReset = false;
+    this.onEdit();
   }
 
 }
