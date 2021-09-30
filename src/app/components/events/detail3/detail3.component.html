@@ -1,5 +1,5 @@
 <div class="default-panel">
-<div *ngIf="eventToEdit != null; else noneSelected">
+<div *ngIf="eventToEdit else noneSelected">
   <h3 class="m-2">{{eventToEdit.title}}</h3>
   <div class="card-body tab-content">
     <div class="tab-pane active" id="profile">
@@ -37,7 +37,7 @@
                  placeholder="Enter participation fee" name="{{eventToEdit.maxParticipants}}" [(ngModel)]="eventToEdit.maxParticipants">
         </div>
 
-        <button (click)="onDeleteEvent()" type="button" class="m-2 btn btn-success border-dark float-right">Save</button>
+        <button (click)="onSaveEvent()" type="button" class="m-2 btn btn-success border-dark float-right">Save</button>
         <button (click)="onClearEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right">Clear</button>
         <button (click)="onResetEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right">Reset</button>
         <button (click)="onCancelEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right">Cancel</button>

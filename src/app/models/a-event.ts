@@ -47,4 +47,18 @@ export class AEvent {
 
     return newEvent;
   }
+
+  public clear() {
+    this.title = "";
+    this.description = "";
+
+    this.status = aEventStatus.DRAFT;
+
+    this.start = new Date(Date.now());
+    this.end = new Date(Date.now());
+
+    this.isTicketed = false;
+    this.participationFee = 0;
+    this.maxParticipants = 0;
+  }
 }

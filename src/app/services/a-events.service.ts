@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AEvent} from "../models/a-event";
+import {AEvent, aEventStatus} from "../models/a-event";
 
 @Injectable({
   providedIn: 'root'
@@ -27,9 +27,13 @@ export class AEventsService {
 
   save(aEvent: AEvent): AEvent | null {
     const foundEvent = this.findById(aEvent.id);
-    if (foundEvent) this.deleteById(aEvent.id);
 
-    this.aEventsList.push(aEvent);
+    if (foundEvent) {
+      const position = this.aEventsList.indexOf(foundEvent);
+      this.aEventsList[position] = aEvent;
+    } else {
+      this.aEventsList.push(aEvent);
+    }
 
     return foundEvent;
   }
@@ -46,4 +50,5 @@ export class AEventsService {
 
     return eventToDelete;
   }
+
 }

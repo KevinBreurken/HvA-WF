@@ -12,7 +12,7 @@ export class Detail3Component implements OnInit, OnChanges {
   @Input() editedAEventId: number = -1;
   @Output() eventIdOutput = new EventEmitter<number>();
 
-  eventToEdit: AEvent | null = new AEvent();
+  eventToEdit: AEvent = new AEvent();
 
   selectValues = Object.values(aEventStatus);
 
@@ -22,8 +22,8 @@ export class Detail3Component implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
-  getCurrentEvent(): AEvent {
-    return <AEvent>this.aEventService.findById(this.editedAEventId);
+  onSaveEvent() {
+    this.aEventService.save(this.eventToEdit);
   }
 
   onDeleteEvent() {
@@ -31,18 +31,22 @@ export class Detail3Component implements OnInit, OnChanges {
   }
 
   onClearEvent() {
+    // console.log(this.eventToEdit)
+    // console.log(this.eventToEdit.id)
+    this.eventToEdit.clear();
 
   }
 
   onResetEvent() {
-
+    this.eventToEdit = <AEvent>JSON.parse(JSON.stringify(this.aEventService.findById(this.editedAEventId)));
+    // console.log(this.eventToEdit)
   }
 
   onCancelEvent() {
 
   }
-  
+
   ngOnChanges(): void {
-    this.eventToEdit = JSON.parse(JSON.stringify(this.aEventService.findById(this.editedAEventId)));
+    this.onResetEvent();
   }
 }
