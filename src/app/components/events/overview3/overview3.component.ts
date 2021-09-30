@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {AEvent} from "../../../models/a-event";
 import {Detail2Component} from "../detail2/detail2.component";
 import {AEventsService} from "../../../services/a-events.service";
