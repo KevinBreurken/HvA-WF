@@ -1,4 +1,4 @@
-import {Component, Input, Output, OnInit, EventEmitter, Inject} from '@angular/core';
+import {Component, Input, Output, OnInit, EventEmitter, OnChanges} from '@angular/core';
 import {AEvent, aEventStatus} from "../../../models/a-event";
 import {AEventsService} from "../../../services/a-events.service";
 
@@ -7,10 +7,12 @@ import {AEventsService} from "../../../services/a-events.service";
   templateUrl: './detail3.component.html',
   styleUrls: ['./detail3.component.css']
 })
-export class Detail3Component implements OnInit {
+export class Detail3Component implements OnInit, OnChanges {
 
   @Input() editedAEventId: number = -1;
   @Output() eventIdOutput = new EventEmitter<number>();
+
+  eventToEdit: AEvent | null = new AEvent();
 
   selectValues = Object.values(aEventStatus);
 
@@ -26,5 +28,9 @@ export class Detail3Component implements OnInit {
 
   onDeleteEvent() {
     this.eventIdOutput.emit(this.editedAEventId);
+  }
+
+  ngOnChanges(): void {
+    this.eventToEdit = JSON.parse(JSON.stringify(this.aEventService.findById(this.editedAEventId)));
   }
 }

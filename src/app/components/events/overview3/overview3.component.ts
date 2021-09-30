@@ -23,7 +23,7 @@ export class Overview3Component implements OnInit {
   }
 
   onAddEvent() {
-   const newEvent = AEvent.createRandomAEvent();
+    const newEvent = AEvent.createRandomAEvent();
     //Add a random event.
     this.aEventService.save(newEvent);
     //Select the last event.
