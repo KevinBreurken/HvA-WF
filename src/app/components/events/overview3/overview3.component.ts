@@ -10,7 +10,7 @@ import {AEventsService} from "../../../services/a-events.service";
 })
 export class Overview3Component implements OnInit {
 
-  // public aEvents: AEvent[] = []
+  // public aEvents: AEvent[] = [];
   public selectedAEvent: any = null;
 
   constructor(private aEventService: AEventsService) {
@@ -21,16 +21,15 @@ export class Overview3Component implements OnInit {
   }
 
   allEvents() {
-    return this.aEventService.findAll()
+    return this.aEventService.findAll();
   }
 
   onAddEvent() {
+   const newEvent = AEvent.createRandomAEvent();
     //Add a random event.
-    this.aEventService.findAll().push(AEvent.createRandomAEvent());
+    this.aEventService.save(newEvent);
     //Select the last event.
-    this.onEventClicked(
-      this.aEventService.findAll()[this.aEventService.findAll().length-1]
-    )
+    this.onEventClicked(newEvent);
   }
 
   onEventClicked(event: AEvent) {
