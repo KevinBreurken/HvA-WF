@@ -22,8 +22,17 @@
   <nav class="navbar navbar-expand-md navbar-buttons w-100 bg-light">
     <div class="collapse navbar-collapse" id="navbarsExampleDefault" [ngbCollapse]="isCollapsed">
       <!-- Left Logo -->
-      <button type="button" class="btn btn-primary pull-left">Home</button>
-      <button type="button" class="btn btn-primary">My Events</button>
+      <button type="button" class="btn btn-primary pull-left" routerLink="/">Home</button>
+<!--      <button type="button" class="btn btn-primary">My Events</button>-->
+      <div class="dropdown">
+        <button class="btn btn-primary dropbtn">My Events</button>
+        <div class="dropdown-content">
+          <a routerLink="events/overview1">All events list</a>
+          <a routerLink="events/overview2">M/D (component store)</a>
+          <a routerLink="events/overview3">M/D (from service)</a>
+          <a routerLink="events/overview3">M/D (routeparams)</a>
+        </div>
+      </div>
       <div class="dropdown">
         <button class="btn btn-primary dropbtn">My Registrations</button>
         <div class="dropdown-content">
@@ -33,8 +42,8 @@
       </div>
       <button type="button" class="btn btn-primary">My Account</button>
       <div class="w-100"></div>
-      <button type="button" class="btn btn-primary pull-left">Sign Up</button>
-      <button type="button" class="btn btn-primary">Log In</button>
+      <button type="button" class="btn btn-primary pull-left" routerLink="/signup">Sign Up</button>
+      <button type="button" class="btn btn-primary" routerLink="/login">Log In</button>
     </div>
   </nav>
 </div>

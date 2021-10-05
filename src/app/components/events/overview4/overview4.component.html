@@ -4,14 +4,14 @@
     <div class="col-2 p-4 event-list">
       <p><b>Overview of all events:</b></p>
       <div class="list-group">
-        <a *ngFor="let event of aEvents" (click)="onEventClicked(event)" [ngClass]="event == selectedAEvent ? 'active' : ''" class="list-group-item list-group-item-action">{{event.title}}</a>
+        <a *ngFor="let event of allEvents()" (click)="onEventClicked(event)" [ngClass]="event.id == selectedAEventId ? 'active' : ''" class="list-group-item list-group-item-action">{{event.title}}</a>
       </div>
       <button (click)="onAddEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right">Add Event</button>
     </div>
 
     <!-- column 2 -->
     <div class="col bg-white d-flex flex-wrap w-100 default-panel">
-      <app-detail2 (eventOutput)="removeEvent($event)" [event]="selectedAEvent"></app-detail2>
+      <app-detail4 (cancelOutput)="cancelEvent($event)" (removeOutput)="removeEvent($event)" [editedAEventId]="selectedAEventId"></app-detail4>
     </div>
   </div>
 </div>
