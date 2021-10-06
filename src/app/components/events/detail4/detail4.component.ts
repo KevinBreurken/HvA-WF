@@ -32,7 +32,7 @@ export class Detail4Component implements OnInit, OnChanges, OnDestroy {
         (params: Params) => {
           if (params['eventId'] != undefined) {
             this.editedAEventId = params['eventId']
-            this.eventToEdit = Object.create(this.aEventService.findById(this.editedAEventId));
+            this.ngOnChanges()
           }
         }
       );
@@ -47,13 +47,15 @@ export class Detail4Component implements OnInit, OnChanges, OnDestroy {
    */
   onEdit() {
     console.log(this.editedAEventId)
-    if (this.editedAEventId !== -1)
-      this.edited = this.eventToEdit.equals(<AEvent>this.aEventService.findById(this.editedAEventId));
 
+    if (this.editedAEventId !== -1)
+      this.edited = !this.eventToEdit.equals(<AEvent>this.aEventService.findById(this.editedAEventId));
   }
 
   onSaveEvent() {
     this.aEventService.save(this.eventToEdit);
+    this.eventToEdit = Object.create(this.eventToEdit);
+    this.edited = false;
   }
 
   onDeleteEvent() {
@@ -67,6 +69,7 @@ export class Detail4Component implements OnInit, OnChanges, OnDestroy {
     if(!confirm("Do you want to clear the selected event?"))
       return;
     this.eventToEdit.clear();
+    this.edited = true;
   }
 
   onResetEvent() {
@@ -74,6 +77,7 @@ export class Detail4Component implements OnInit, OnChanges, OnDestroy {
       return;
 
     this.eventToEdit = Object.create(this.aEventService.findById(this.editedAEventId));
+    this.edited = false;
   }
 
   onCancelEvent() {
@@ -81,9 +85,11 @@ export class Detail4Component implements OnInit, OnChanges, OnDestroy {
       return;
 
     this.cancelOutput.emit(this.editedAEventId);
+    this.editedAEventId = -1;
   }
 
   ngOnChanges(): void {
+    console.log("is called")
     this.eventToEdit = Object.create(this.aEventService.findById(this.editedAEventId));
     this.onEdit();
   }
