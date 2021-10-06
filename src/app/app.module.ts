@@ -25,6 +25,7 @@ const appRoutes: Routes = [
   {path: 'events/overview2', component: Overview2Component},
   {path: 'events/overview3', component: Overview3Component},
   {path: 'events/overview4', component: Overview4Component},
+  {path: 'events/overview4/:eventId', component: Overview4Component},
   {path: '**', component: ErrorComponent},
 ];
 

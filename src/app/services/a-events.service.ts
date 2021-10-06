@@ -21,7 +21,7 @@ export class AEventsService {
   }
 
   findById(id: number): AEvent | null {
-    const foundEvent = this.aEventsList.find(x => x.id === id);
+    const foundEvent = this.aEventsList.find(x => x.id == id);
     return (foundEvent !== undefined) ? foundEvent : null;
   }
 

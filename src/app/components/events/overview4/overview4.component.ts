@@ -1,6 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {AEvent} from "../../../models/a-event";
 import {AEventsService} from "../../../services/a-events.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-overview4',
@@ -11,7 +12,11 @@ export class Overview4Component implements OnInit {
 
   public selectedAEventId: number = -1;
 
-  constructor(private aEventService: AEventsService) {
+  constructor(private route: ActivatedRoute ,private aEventService: AEventsService) {
+    const paramId : number = this.route.snapshot.params['eventId'];
+
+    if(paramId != undefined)
+    this.selectedAEventId = paramId;
   }
 
   ngOnInit(): void {
