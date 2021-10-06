@@ -1,7 +1,9 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {AEvent} from "../../../models/a-event";
 import {AEventsService} from "../../../services/a-events.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {AppComponent} from "../../../app.component";
+import {elementAt} from "rxjs/operators";
 
 @Component({
   selector: 'app-overview4',
@@ -12,7 +14,7 @@ export class Overview4Component implements OnInit {
 
   public selectedAEventId: number = -1;
 
-  constructor(private route: ActivatedRoute ,private aEventService: AEventsService) {
+  constructor(private router: Router, private route: ActivatedRoute ,private aEventService: AEventsService) {
     const paramId : number = this.route.snapshot.params['eventId'];
 
     if(paramId != undefined)
@@ -36,6 +38,9 @@ export class Overview4Component implements OnInit {
 
   onEventClicked(event: AEvent) {
     this.selectedAEventId = event.id;
+
+    const command = this.route.snapshot.params['eventId'] != undefined ? ['../',this.selectedAEventId] : [this.selectedAEventId];
+    this.router.navigate(command, {relativeTo: this.route});
   }
 
 
