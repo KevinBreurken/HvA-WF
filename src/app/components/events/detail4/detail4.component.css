@@ -6,12 +6,20 @@ textarea {
 }
 
 
-.form-group{
+.form-group {
   margin-bottom: 16px !important;
 }
 
-.form-check-input:checked{
+.form-check-input:checked {
   background-color: #ea3f3f !important;
   border-color: #ea3f3f !important;
   font-weight: bold;
+}
+
+.button-anim {
+  transition: all .1s ease-in-out;
+}
+
+.button-anim:hover {
+  transform: scale(1.1) !important;
 }

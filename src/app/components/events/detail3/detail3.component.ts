@@ -39,30 +39,31 @@ export class Detail3Component implements OnInit, OnChanges {
 
   onSaveEvent() {
     this.aEventService.save(this.eventToEdit);
+    this.eventToEdit = Object.create(this.eventToEdit);
   }
 
   onDeleteEvent() {
-    if(!confirm("Do you want to delete the selected event?"))
+    if (!confirm("Do you want to delete the selected event?"))
       return;
 
     this.removeOutput.emit(this.editedAEventId);
   }
 
   onClearEvent() {
-    if(!confirm("Do you want to clear the selected event?"))
+    if (!confirm("Do you want to clear the selected event?"))
       return;
     this.eventToEdit.clear();
   }
 
   onResetEvent() {
-    if(!confirm("Do you want to reset the selected event?"))
+    if (!confirm("Do you want to reset the selected event?"))
       return;
 
     this.eventToEdit = Object.create(this.aEventService.findById(this.editedAEventId));
   }
 
   onCancelEvent() {
-    if(!confirm("Do you want to deselect the event that you've currently selected?"))
+    if (!confirm("Do you want to deselect the event that you've currently selected?"))
       return;
 
     this.cancelOutput.emit(this.editedAEventId);

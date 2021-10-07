@@ -37,15 +37,11 @@
                  placeholder="Enter participation fee" name="max participants" [(ngModel)]="eventToEdit.maxParticipants">
         </div>
 
-        <div>
-          {{isEdited()}}
-        </div>
-
-        <button (click)="onSaveEvent()" type="button" class="m-2 btn btn-success border-dark float-right" [disabled]="!isEdited()">Save</button>
-        <button (click)="onClearEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right">Clear</button>
-        <button (click)="onCancelEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right">Cancel</button>
-        <button (click)="onResetEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right" [disabled]="!isEdited()">Reset</button>
-        <button (click)="onDeleteEvent()" type="button" class="m-2 btn btn-danger border-dark float-right" [disabled]="isEdited()">Delete</button>
+        <button (click)="onSaveEvent()" type="button" class="m-2 btn btn-success border-dark float-right button-anim" [disabled]="!isEdited()">Save</button>
+        <button (click)="onClearEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right button-anim">Clear</button>
+        <button (click)="onCancelEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right button-anim">Cancel</button>
+        <button (click)="onResetEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right button-anim" [disabled]="!isEdited()">Reset</button>
+        <button (click)="onDeleteEvent()" type="button" class="m-2 btn btn-danger border-dark float-right button-anim" [disabled]="isEdited()">Delete</button>
       </form>
     </div>
   </div>

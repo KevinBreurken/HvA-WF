@@ -48,3 +48,10 @@
   background-color: #ea3f3f !important;
 }
 
+.card-obj {
+  transition: all .1s ease-in-out;
+}
+
+.card-obj:hover {
+  transform: scale(1.05) !important;
+}
