@@ -20,6 +20,8 @@
           <option selected>Choose...</option>
           <option *ngFor="let value of selectValues" [value]="value">{{value.valueOf()}}</option>
         </select>
+        
+        <hr>
         <div class="form-check">
           <input type="checkbox" class="form-check-input" id="exampleCheck1" name="isTicketed" [(ngModel)]="eventToEdit.isTicketed">
           <label class="form-check-label" for="exampleCheck1">Is Ticketed</label>
@@ -37,6 +39,7 @@
                  placeholder="Enter participation fee" name="max participants" [(ngModel)]="eventToEdit.maxParticipants">
         </div>
 
+        <hr>
         <button (click)="onSaveEvent()" type="button" class="m-2 btn btn-success border-dark float-right" [disabled]="isEdited()">Save</button>
         <button (click)="onClearEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right">Clear</button>
         <button (click)="onCancelEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right">Cancel</button>
