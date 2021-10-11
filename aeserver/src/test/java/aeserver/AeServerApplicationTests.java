@@ -1,4 +1,4 @@
-package nl.hva.aeserver;
+package aeserver;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package nl.hva.aeserver.entity;
+package aeserver.entity;
 
 public class Greeting {
 

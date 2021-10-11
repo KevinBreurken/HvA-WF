@@ -1,6 +1,6 @@
-package nl.hva.aeserver.restcontroller;
+package aeserver.restcontroller;
 
-import nl.hva.aeserver.entity.Greeting;
+import aeserver.entity.Greeting;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

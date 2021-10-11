@@ -1,4 +1,4 @@
-package nl.hva.aeserver.restcontroller;
+package aeserver.restcontroller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
