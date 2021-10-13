@@ -1,0 +1,51 @@
+<div class="default-panel">
+<div *ngIf="editedAEventId != -1; else noneSelected">
+  <h3 class="m-2">{{eventToEdit.title}}</h3>
+  <div class="card-body tab-content">
+    <div class="tab-pane active" id="profile">
+      <h6>Selected event details: (id={{eventToEdit.id}})</h6>
+      <hr>
+      <form (keyup)="onEdit()">
+        <div class="form-group">
+          <label for="fullName">Title:</label>
+          <input type="text" class="form-control" id="fullName"
+            placeholder="Enter event title" name="title" [(ngModel)]="eventToEdit.title">
+        </div>
+        <div class="form-group">
+          <label for="bio">Description:</label>
+          <textarea class="form-control autosize" id="bio" placeholder="Write something about the event" name="description" [(ngModel)]="eventToEdit.description"></textarea>
+        </div>
+        <label for="inputState">State</label>
+        <select id="inputState" class="form-control" [(ngModel)]="eventToEdit.status" name="state" (change)="onEdit()">
+          <option selected>Choose...</option>
+          <option *ngFor="let value of selectValues" [value]="value">{{value.valueOf()}}</option>
+        </select>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1" name="isTicketed" [(ngModel)]="eventToEdit.isTicketed">
+          <label class="form-check-label" for="exampleCheck1">Is Ticketed</label>
+        </div>
+
+        <div class="form-group" *ngIf="eventToEdit.isTicketed">
+          <label for="fullName">Participation fee:</label>
+          <input type="number" class="form-control"
+                 placeholder="Enter participation fee" name="participation fee" [(ngModel)]="eventToEdit.participationFee">
+        </div>
+
+        <div class="form-group"  *ngIf="eventToEdit.isTicketed">
+          <label for="fullName">Maximum participants:</label>
+          <input type="number" class="form-control"
+                 placeholder="Enter participation fee" name="max participants" [(ngModel)]="eventToEdit.maxParticipants">
+        </div>
+
+        <button (click)="onSaveEvent()" type="button" class="m-2 btn btn-success border-dark float-right button-anim" [disabled]="!isEdited()">Save</button>
+        <button (click)="onClearEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right button-anim">Clear</button>
+        <button (click)="onCancelEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right button-anim">Cancel</button>
+        <button (click)="onResetEvent()" type="button" class="m-2 bg-light btn btn-primary border-dark float-right button-anim" [disabled]="!isEdited()">Reset</button>
+        <button (click)="onDeleteEvent()" type="button" class="m-2 btn btn-danger border-dark float-right button-anim" [disabled]="isEdited()">Delete</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<ng-template #noneSelected><h3 class="m-2">Select an event at the left</h3></ng-template>
+</div>

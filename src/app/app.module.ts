@@ -13,6 +13,22 @@ import {Overview3Component} from "./components/events/overview3/overview3.compon
 import {Detail2Component} from './components/events/detail2/detail2.component';
 import {AEventsService} from "./services/a-events.service";
 import {Detail3Component} from "./components/events/detail3/detail3.component";
+import {RouterModule, Routes} from "@angular/router";
+import { ErrorComponent } from './components/mainpage/error/error.component';
+import { Overview4Component } from './components/events/overview4/overview4.component';
+import { Detail4Component } from './components/events/detail4/detail4.component';
+
+const appRoutes: Routes = [
+  {path: '', component: HomeComponent},
+  {path: 'home', component: HomeComponent},
+  {path: 'events/overview1', component: Overview1Component},
+  {path: 'events/overview2', component: Overview2Component},
+  {path: 'events/overview3', component: Overview3Component},
+  {path: 'events/overview4', component: Overview4Component},
+  {path: 'events/overview4/:eventId', component: Overview4Component},
+  {path: '**', component: ErrorComponent},
+];
+
 
 @NgModule({
   declarations: [
@@ -25,11 +41,15 @@ import {Detail3Component} from "./components/events/detail3/detail3.component";
     Overview3Component,
     Detail2Component,
     Detail3Component,
+    ErrorComponent,
+    Overview4Component,
+    Detail4Component,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    RouterModule.forRoot(appRoutes, {useHash: true})
   ],
   providers: [AEventsService],
   bootstrap: [AppComponent]
