@@ -1,13 +1,12 @@
 package aeserver.repositories;
 
 import aeserver.models.AEvent;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Component("Mock")
 public class AEventsRepositoryMock implements AEventsRepository {
 
   private ArrayList<AEvent> aEventList = new ArrayList<>();
