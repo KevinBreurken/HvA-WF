@@ -1,5 +1,7 @@
 package aeserver.restcontroller;
 
+import aeserver.exceptions.PreConditionFailedException;
+import aeserver.exceptions.ResourceNotFoundException;
 import aeserver.models.AEvent;
 import aeserver.repositories.AEventsRepository;
 import aeserver.repositories.AEventsRepositoryMock;
@@ -21,11 +23,15 @@ public class AEventsController {
 
   @GetMapping("rest/aevent")
   public List<AEvent> getAllAEvents() {
+    if (repository.findAll().size() == 0) throw new ResourceNotFoundException("No events to be found.");
+
     return repository.findAll();
   }
 
   @GetMapping("rest/aevent/{id}")
   public AEvent getEvent(@PathVariable int id){
+    if (repository.findById(id) == null) throw new ResourceNotFoundException("id-"+id);
+
     return repository.findById(id);
   }
 
@@ -42,19 +48,22 @@ public class AEventsController {
     return ResponseEntity.created(location).body(savedEvent);
   }
 
-  @PutMapping("rest/aevent/{id}") //id:8
-  public ResponseEntity<AEvent> updateOrReplaceEvent(@RequestBody AEvent aEvent) {
-    repository.update(aEvent);
+  @PutMapping("rest/aevent/{id}")
+  public ResponseEntity<AEvent> updateOrReplaceEvent(@RequestBody AEvent aEvent, @PathVariable int id) {
+    if (id != aEvent.getID()) throw new PreConditionFailedException("Id param is different to the id of the given event.");
 
     URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
       .buildAndExpand(aEvent.getID()).toUri();
 
+    repository.update(aEvent);
 
-    return ResponseEntity.created(location).body(aEvent); //id:0
+    return ResponseEntity.created(location).body(aEvent);
   }
 
   @DeleteMapping("rest/aevent/{id}")
   public ResponseEntity<AEvent> removeEvent(@PathVariable int id) {
+    if (repository.findById(id) == null) throw new ResourceNotFoundException("id-"+id);
+
     AEvent aEvent = repository.remove(id);
 
     return ResponseEntity.ok(aEvent);
