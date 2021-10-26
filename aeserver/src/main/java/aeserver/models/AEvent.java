@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class AEvent {
+public class AEvent implements Comparable<AEvent> {
 
   private static int nextAvailableId = 20001;
   private String title;
@@ -119,5 +119,10 @@ public class AEvent {
 
   public void setMaxParticipants(double maxParticipants) {
     this.maxParticipants = maxParticipants;
+  }
+
+  @Override
+  public int compareTo(AEvent o) {
+    return id - o.getID();
   }
 }

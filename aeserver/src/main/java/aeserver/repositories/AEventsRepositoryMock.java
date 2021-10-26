@@ -1,8 +1,6 @@
 package aeserver.repositories;
 
 import aeserver.models.AEvent;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +22,7 @@ public class AEventsRepositoryMock implements AEventsRepository {
   }
 
   @Override
-  public AEvent findByID(int id){
+  public AEvent findById(int id){
     for (AEvent aEvent : aEventList)
       if (aEvent.getID() == id)
         return aEvent;
@@ -33,8 +31,21 @@ public class AEventsRepositoryMock implements AEventsRepository {
   }
 
   @Override
-  public AEvent save(AEvent event) {
-    aEventList.add(event);
-    return event;
+  public AEvent save(AEvent aEvent) {
+    aEventList.add(aEvent);
+
+    return aEvent;
+  }
+
+  @Override
+  public void update(AEvent aEvent) {
+    if (aEventList.contains(aEvent)) aEventList.set(aEventList.indexOf(aEvent), aEvent);
+  }
+
+  @Override
+  public AEvent remove(int id) {
+    AEvent aEvent = findById(id);
+    aEventList.remove(aEvent);
+    return aEvent;
   }
 }
