@@ -18,9 +18,23 @@ public class AEventsRepositoryMock implements AEventsRepository {
     }
   }
 
-
   @Override
   public List<AEvent> findAll() {
     return aEventList;
+  }
+
+  @Override
+  public AEvent findByID(int id){
+    for (AEvent aEvent : aEventList)
+      if (aEvent.getID() == id)
+        return aEvent;
+
+    return null;
+  }
+
+  @Override
+  public AEvent save(AEvent event) {
+    aEventList.add(event);
+    return event;
   }
 }
