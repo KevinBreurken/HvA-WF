@@ -1,6 +1,7 @@
 package aeserver.models;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -125,4 +126,15 @@ public class AEvent implements Comparable<AEvent> {
   public int compareTo(AEvent o) {
     return id - o.getID();
   }
+
+  @Override
+  public boolean equals(Object o) {
+    return id == ((AEvent)o).getID();
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(title, id, start, end, description, isTicketed, participationFee, maxParticipants);
+  }
 }
+

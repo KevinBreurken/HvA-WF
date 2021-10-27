@@ -57,7 +57,7 @@ public class AEventsController {
 
     repository.update(aEvent);
 
-    return ResponseEntity.created(location).body(aEvent);
+    return ResponseEntity.ok(aEvent);
   }
 
   @DeleteMapping("rest/aevent/{id}")

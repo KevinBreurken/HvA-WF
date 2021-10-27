@@ -39,7 +39,9 @@ public class AEventsRepositoryMock implements AEventsRepository {
 
   @Override
   public void update(AEvent aEvent) {
-    if (aEventList.contains(aEvent)) aEventList.set(aEventList.indexOf(aEvent), aEvent);
+    if (aEventList.contains(aEvent)) {
+      aEventList.set(aEventList.indexOf(aEvent), aEvent);
+    }
   }
 
   @Override
