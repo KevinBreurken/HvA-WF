@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
 import {FormsModule} from "@angular/forms";
@@ -17,6 +18,9 @@ import {RouterModule, Routes} from "@angular/router";
 import { ErrorComponent } from './components/mainpage/error/error.component';
 import { Overview4Component } from './components/events/overview4/overview4.component';
 import { Detail4Component } from './components/events/detail4/detail4.component';
+import {Detail5Component} from "./components/events/detail5/detail5.component";
+import {Overview5Component} from "./components/events/overview5/overview5.component";
+import {AEventsSbService} from "./services/a-events-sb.service";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -26,7 +30,9 @@ const appRoutes: Routes = [
   {path: 'events/overview3', component: Overview3Component},
   {path: 'events/overview4', component: Overview4Component},
   {path: 'events/overview4/:eventId', component: Overview4Component},
-  {path: '**', component: ErrorComponent},
+  {path: 'events/overview5', component: Overview5Component},
+  {path: 'events/overview5/:eventId', component: Overview5Component},
+  {path: '**', component: ErrorComponent}
 ];
 
 
@@ -39,19 +45,22 @@ const appRoutes: Routes = [
     Overview1Component,
     Overview2Component,
     Overview3Component,
+    Overview5Component,
     Detail2Component,
     Detail3Component,
     ErrorComponent,
     Overview4Component,
     Detail4Component,
+    Detail5Component
   ],
   imports: [
     BrowserModule,
     FormsModule,
     NgbModule,
-    RouterModule.forRoot(appRoutes, {useHash: true})
+    RouterModule.forRoot(appRoutes, {useHash: true}),
+    HttpClientModule
   ],
-  providers: [AEventsService],
+  providers: [AEventsService, AEventsSbService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
