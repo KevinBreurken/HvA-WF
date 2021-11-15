@@ -1,6 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {AEvent} from "../../../models/a-event";
-import {AEventsService} from "../../../services/a-events.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AppComponent} from "../../../app.component";
 import {elementAt} from "rxjs/operators";

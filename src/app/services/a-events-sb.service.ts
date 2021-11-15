@@ -13,34 +13,28 @@ export class AEventsSbService {
 
   constructor(private http: HttpClient) {
     this.restGetAEvents().subscribe(data => {
-      console.log(data)
-    });
-    this.http
-      .get(
-        'http://localhost:8084/aevent',
-        {
-          responseType: 'json'
-        }
-      );
+      console.log("RAW DATA:")
+      console.log(data);
+      for (let i = 0; i < data.length; i++) {
+        this.aEventsList.push(AEvent.trueCopy(data[i]));
+      }
+      console.log("Copies as AEvents")
+      console.log(this.aEventsList)
+    })
   }
 
-  private restGetAEvents() : Observable<AEvent[]> {
+  private restGetAEvents(): Observable<AEvent[]> {
     return this.http
       .get(
-        'http://localhost:8084/aevent',
-        {
-          responseType: 'json'
-        }
+        'http://localhost:8084/aevent', {responseType: 'json'}
       )
       .pipe(
         map(responseData => {
           const AEventsArray: AEvent[] = [];
-
           for (const key in responseData) {
             // @ts-ignore
-            AEventsArray.push({ ...responseData[key]})
+            AEventsArray.push({...responseData[key]});
           }
-
           return AEventsArray;
         }),
         catchError(errorRes => {

@@ -71,13 +71,17 @@ export class AEvent {
     if (this.status !== other.status)
       return false;
 
-    if(this.isTicketed !== other.isTicketed)
+    if (this.isTicketed !== other.isTicketed)
       return false;
 
-    if(this.participationFee !== other.participationFee)
+    if (this.participationFee !== other.participationFee)
       return false;
 
     return this.maxParticipants === other.maxParticipants;
 
+  }
+
+  static trueCopy(aEvent: AEvent): AEvent {
+    return <AEvent>(aEvent == null ? null : Object.assign(new AEvent(), aEvent));
   }
 }
