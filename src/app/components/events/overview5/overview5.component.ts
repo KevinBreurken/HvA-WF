@@ -14,14 +14,15 @@ export class Overview5Component implements OnInit {
 
   public selectedAEventId: number = -1;
 
-  constructor(private router: Router, private route: ActivatedRoute ,private aEventService: AEventsSbService) {
-    const paramId : number = this.route.snapshot.params['eventId'];
+  constructor(private router: Router, private route: ActivatedRoute, private aEventService: AEventsSbService) {
+    const paramId: number = this.route.snapshot.params['eventId'];
 
-    if(paramId != undefined)
-    this.selectedAEventId = paramId;
+    if (paramId != undefined)
+      this.selectedAEventId = paramId;
   }
 
   ngOnInit(): void {
+
   }
 
   allEvents() {
@@ -39,7 +40,7 @@ export class Overview5Component implements OnInit {
   onEventClicked(event: AEvent) {
     this.selectedAEventId = event.id;
 
-    const command = this.route.snapshot.params['eventId'] != undefined ? ['../',this.selectedAEventId] : [this.selectedAEventId];
+    const command = this.route.snapshot.params['eventId'] != undefined ? ['../', this.selectedAEventId] : [this.selectedAEventId];
     this.router.navigate(command, {relativeTo: this.route});
   }
 
@@ -53,7 +54,7 @@ export class Overview5Component implements OnInit {
     this.deselectEventSelection();
   }
 
-  deselectEventSelection(){
+  deselectEventSelection() {
     this.selectedAEventId = -1;
   }
 }

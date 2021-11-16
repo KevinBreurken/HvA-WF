@@ -49,7 +49,7 @@ public class AEventsController {
     return ResponseEntity.created(location).body(savedEvent);
   }
 
-  @PutMapping("rest/aevent/{id}")
+  @PutMapping("aevent/{id}")
   public ResponseEntity<AEvent> updateOrReplaceEvent(@RequestBody AEvent aEvent, @PathVariable int id) {
     if (id != aEvent.getID()) throw new PreConditionFailedException("Id param is different to the id of the given event.");
 
@@ -61,7 +61,7 @@ public class AEventsController {
     return ResponseEntity.ok(aEvent);
   }
 
-  @DeleteMapping("rest/aevent/{id}")
+  @DeleteMapping("aevent/{id}")
   public ResponseEntity<AEvent> removeEvent(@PathVariable int id) {
     if (repository.findById(id) == null) throw new ResourceNotFoundException("id-"+id);
 

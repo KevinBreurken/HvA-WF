@@ -43,6 +43,27 @@ export class AEventsSbService {
       );
   }
 
+  private restPostAEvent(aEvent: AEvent): Observable<AEvent> {
+    // @ts-ignore
+    return this.http.post('http://localhost:8084/aevent', aEvent).subscribe(data => {
+      return data;
+    });
+  }
+
+  private restPutAEvent(aEvent: AEvent): Observable<AEvent> {
+    const url = `http://localhost:8084/aevent/${aEvent.id}`;
+    // @ts-ignore
+    return this.http.put(url, aEvent);
+  }
+
+  private restDeleteAEvent(aEventId: number): void {
+    const url = `http://localhost:8084/aevent/${aEventId}`;
+    this.http.delete(url, {responseType: 'json'}).subscribe(data =>{
+      console.log("Deleted");
+    });
+  }
+
+
   findAll(): AEvent[] {
     return this.aEventsList;
   }
@@ -56,10 +77,15 @@ export class AEventsSbService {
     const foundEvent = this.findById(aEvent.id);
 
     if (foundEvent) {
-      const position = this.aEventsList.indexOf(foundEvent);
-      this.aEventsList[position] = aEvent;
+      this.restPutAEvent(aEvent).subscribe(data => {
+        const position = this.aEventsList.indexOf(foundEvent);
+        this.aEventsList[position] = aEvent;
+      });
+
     } else {
-      this.aEventsList.push(aEvent);
+      this.restPostAEvent(aEvent).subscribe(data => {
+        this.aEventsList.push(aEvent);
+      });
     }
 
     return foundEvent;
@@ -69,6 +95,7 @@ export class AEventsSbService {
     const eventToDelete = this.findById(eId);
 
     if (eventToDelete) {
+      this.restDeleteAEvent(eId);
       this.aEventsList.splice(
         this.aEventsList.indexOf(eventToDelete),
         1

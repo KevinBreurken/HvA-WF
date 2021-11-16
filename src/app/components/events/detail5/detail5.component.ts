@@ -64,6 +64,7 @@ export class Detail5Component implements OnInit, OnChanges, OnDestroy {
       return;
 
     this.removeOutput.emit(this.editedAEventId);
+    this.editedAEventId = -1;
   }
 
   onClearEvent() {
