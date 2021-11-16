@@ -91,7 +91,6 @@ export class Detail5Component implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(): void {
-    console.log("is called")
     this.eventToEdit = Object.create(this.aEventService.findById(this.editedAEventId));
     this.onEdit();
   }

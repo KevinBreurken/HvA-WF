@@ -89,6 +89,8 @@ export class AEventsSbService {
 
       //Send to backend
       let copy = AEvent.trueCopy(aEvent);
+      copy.id = aEvent.id;
+
       this.restPutAEvent(copy);
       //Update frontend
       const position = this.aEventsList.indexOf(foundEvent);
