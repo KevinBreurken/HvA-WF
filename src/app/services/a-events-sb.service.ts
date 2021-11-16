@@ -13,13 +13,9 @@ export class AEventsSbService {
 
   constructor(private http: HttpClient) {
     this.restGetAEvents().subscribe(data => {
-      console.log("RAW DATA:")
-      console.log(data);
       for (let i = 0; i < data.length; i++) {
         this.aEventsList.push(AEvent.trueCopy(data[i]));
       }
-      console.log("Copies as AEvents")
-      console.log(this.aEventsList)
     })
   }
 
@@ -47,20 +43,28 @@ export class AEventsSbService {
     // @ts-ignore
     return this.http.post('http://localhost:8084/aevent', aEvent).subscribe(data => {
       return data;
-    });
+    },catchError(errorRes => {
+      return throwError(errorRes);
+    }));
   }
 
   private restPutAEvent(aEvent: AEvent): Observable<AEvent> {
     const url = `http://localhost:8084/aevent/${aEvent.id}`;
     // @ts-ignore
-    return this.http.put(url, aEvent);
+    return this.http.put(url, aEvent).subscribe(data => {
+      return data;
+    },catchError(errorRes => {
+      return throwError(errorRes);
+    }));
   }
 
   private restDeleteAEvent(aEventId: number): void {
     const url = `http://localhost:8084/aevent/${aEventId}`;
-    this.http.delete(url, {responseType: 'json'}).subscribe(data =>{
+    this.http.delete(url, {responseType: 'json'}).subscribe(data => {
       console.log("Deleted");
-    });
+    },catchError(errorRes => {
+      return throwError(errorRes);
+    }));
   }
 
 
@@ -75,17 +79,30 @@ export class AEventsSbService {
 
   save(aEvent: AEvent): AEvent | null {
     const foundEvent = this.findById(aEvent.id);
-
     if (foundEvent) {
-      this.restPutAEvent(aEvent).subscribe(data => {
-        const position = this.aEventsList.indexOf(foundEvent);
-        this.aEventsList[position] = aEvent;
-      });
+      //TODO: This wont work for some reason.
 
+      // this.restPutAEvent(aEvent).subscribe(data => {
+      //   const position = this.aEventsList.indexOf(foundEvent);
+      //   this.aEventsList[position] = aEvent;
+      // });
+
+      //Send to backend
+      let copy = AEvent.trueCopy(aEvent);
+      this.restPutAEvent(copy);
+      //Update frontend
+      const position = this.aEventsList.indexOf(foundEvent);
+      this.aEventsList[position] = aEvent;
     } else {
-      this.restPostAEvent(aEvent).subscribe(data => {
-        this.aEventsList.push(aEvent);
-      });
+      //TODO: same here
+
+      // this.restPostAEvent(aEvent).subscribe(data => {
+      //   this.aEventsList.push(aEvent);
+      // });
+
+      this.restPostAEvent(aEvent);
+      this.aEventsList.push(aEvent);
+
     }
 
     return foundEvent;
