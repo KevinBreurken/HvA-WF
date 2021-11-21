@@ -5,9 +5,8 @@ export enum aEventStatus {
 }
 
 export class AEvent {
-  static nextAvailableId = 20001;
 
-  id: number;
+  id: number = -1;
   title: String = "new Event";
   start: Date = new Date();
   end: Date = new Date();
@@ -19,7 +18,6 @@ export class AEvent {
   maxParticipants: number = 0;
 
   constructor() {
-    this.id = AEvent.nextAvailableId++;
   }
 
   public static createRandomAEvent(): AEvent {

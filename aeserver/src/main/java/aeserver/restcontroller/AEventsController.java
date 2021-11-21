@@ -4,8 +4,8 @@ import aeserver.exceptions.PreConditionFailedException;
 import aeserver.exceptions.ResourceNotFoundException;
 import aeserver.models.AEvent;
 import aeserver.repositories.AEventsRepository;
+import aeserver.repositories.AEventsRepositoryJpa;
 import aeserver.repositories.AEventsRepositoryMock;
-import com.fasterxml.jackson.annotation.JsonFilter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -19,7 +19,7 @@ public class AEventsController {
   private final AEventsRepository repository;
 
   public AEventsController(){
-    repository = new AEventsRepositoryMock();
+    repository = new AEventsRepositoryJpa();
   }
 
   @GetMapping("aevent")
@@ -56,6 +56,7 @@ public class AEventsController {
     URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
       .buildAndExpand(aEvent.getID()).toUri();
 
+    System.out.println(aEvent.getTitle());
     repository.update(aEvent);
 
     return ResponseEntity.ok(aEvent);

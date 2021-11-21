@@ -32,8 +32,11 @@ export class Detail5Component implements OnInit, OnChanges, OnDestroy {
       .subscribe(
         (params: Params) => {
           if (params['eventId'] != undefined) {
-            this.editedAEventId = params['eventId']
-            this.ngOnChanges()
+            if(<AEvent>this.aEventService.findById(params['eventId'])){
+              this.editedAEventId = params['eventId']
+              this.ngOnChanges()
+            }
+              console.log(this.eventToEdit)
           }
         }
       );
@@ -47,9 +50,7 @@ export class Detail5Component implements OnInit, OnChanges, OnDestroy {
    * Compares if selected event equals the edited event.
    */
   onEdit() {
-    console.log(this.editedAEventId)
-
-    if (this.editedAEventId !== -1)
+    if (this.editedAEventId !== -1 && this.eventToEdit.id !== undefined)
       this.edited = !this.eventToEdit.equals(<AEvent>this.aEventService.findById(this.editedAEventId));
   }
 

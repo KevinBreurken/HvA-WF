@@ -1,30 +1,47 @@
 package aeserver.models;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+@Entity
 public class AEvent implements Comparable<AEvent> {
-
   private static int nextAvailableId = 20001;
-  private String title;
+
+  @Id
+  @GeneratedValue
   private int id;
+
+  private String title;
   private Date start;
   private Date end;
-  private String description;
+  private String description = "";
   private boolean isTicketed = false;
   private double participationFee = 0;
   private double maxParticipants = 0;
-  public AEvent() {
 
+  public AEvent() {
   }
 
-  public AEvent(String title) {
+  public AEvent(String title, String description) {
     setTitle(title);
+    setDescription(description);
+
     setID(AEvent.nextAvailableId++);
+  }
+
+  public AEvent(String title, Date start, Date end, String description, boolean isTicketed, double participationFee, double maxParticipants) {
+    this.title = title;
+    this.start = start;
+    this.end = end;
+    this.description = description;
+    this.isTicketed = isTicketed;
+    this.participationFee = participationFee;
+    this.maxParticipants = maxParticipants;
   }
 
   public static int getNextAvailableId() {
@@ -34,7 +51,8 @@ public class AEvent implements Comparable<AEvent> {
   public static AEvent createRandomAEvent() {
     int randomIndex = new Random().nextInt(7);
     String[] randTitle = new String[]{"Picnic at the park", "Jogging around", "Swimming at the beach", "Cycling in the woods", "Dancing in the streets", "Canoe at the zoo", "Skate and bake"};
-    AEvent aEvent = new AEvent(randTitle[randomIndex]);
+    AEvent aEvent = new AEvent();
+    aEvent.title = randTitle[randomIndex];
     aEvent.participationFee = Math.round((Math.random() * 100.0f) * 100.0) / 100.0;
     aEvent.maxParticipants = Math.round(Math.random() * 1000);
 
@@ -131,7 +149,7 @@ public class AEvent implements Comparable<AEvent> {
 
   @Override
   public boolean equals(Object o) {
-    return id == ((AEvent)o).getID();
+    return id == ((AEvent) o).getID();
   }
 
   @Override

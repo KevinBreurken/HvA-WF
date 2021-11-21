@@ -21,7 +21,7 @@ export class AEventsSbService {
 
   private restGetAEvents(): Observable<AEvent[]> {
     return this.http
-      .get(
+      .get<AEvent[]>(
         'http://localhost:8084/aevent', {responseType: 'json'}
       )
       .pipe(
