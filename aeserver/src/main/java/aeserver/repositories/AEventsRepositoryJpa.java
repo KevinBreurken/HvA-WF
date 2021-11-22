@@ -7,18 +7,24 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-@Primary
+//@Primary
 public class AEventsRepositoryJpa implements AEventsRepository {
+
+  private ArrayList<AEvent> aEventList = new ArrayList<>();
 
   @PersistenceContext
   EntityManager em;
 
   @Override
   public List<AEvent> findAll() {
-    return null;
+    for (int i = 0; i < 20; i++) {
+      aEventList.add(AEvent.createRandomAEvent());
+    }
+    return aEventList;
   }
 
   @Override

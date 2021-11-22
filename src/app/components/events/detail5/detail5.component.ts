@@ -1,6 +1,5 @@
-import {Component, Input, Output, OnInit, EventEmitter, OnChanges, OnDestroy} from '@angular/core';
+import {Component, EventEmitter, OnChanges, OnDestroy, OnInit, Output} from '@angular/core';
 import {AEvent, aEventStatus} from "../../../models/a-event";
-import {AEventsService} from "../../../services/a-events.service";
 import {ActivatedRoute, Params} from "@angular/router";
 import {Subscription} from "rxjs";
 import {AEventsSbService} from "../../../services/a-events-sb.service";
@@ -18,7 +17,8 @@ export class Detail5Component implements OnInit, OnChanges, OnDestroy {
 
   private childParamsSubscription : Subscription | null = null;
 
-  eventToEdit: AEvent = new AEvent();
+  eventToEdit: AEvent = new AEvent(-1," ", new Date(), new Date(), " ", aEventStatus.PUBLISHED, false, 0, 0);
+  // eventToEdit : AEvent | null | undefined;
   edited: boolean = false;
 
   selectValues = Object.values(aEventStatus);
@@ -32,11 +32,8 @@ export class Detail5Component implements OnInit, OnChanges, OnDestroy {
       .subscribe(
         (params: Params) => {
           if (params['eventId'] != undefined) {
-            if(<AEvent>this.aEventService.findById(params['eventId'])){
-              this.editedAEventId = params['eventId']
-              this.ngOnChanges()
-            }
-              console.log(this.eventToEdit)
+            this.editedAEventId = params['eventId']
+            this.ngOnChanges()
           }
         }
       );
@@ -50,14 +47,21 @@ export class Detail5Component implements OnInit, OnChanges, OnDestroy {
    * Compares if selected event equals the edited event.
    */
   onEdit() {
-    if (this.editedAEventId !== -1 && this.eventToEdit.id !== undefined)
-      this.edited = !this.eventToEdit.equals(<AEvent>this.aEventService.findById(this.editedAEventId));
+    if (this.editedAEventId !== -1 && this.eventToEdit?.id !== undefined) {
+      let old = this.aEventService.findById(this.editedAEventId);
+      if (old != null) {
+        console.log(this.eventToEdit.equals(AEvent.assignPost(old)))
+        this.edited = !this.eventToEdit.equals(AEvent.assignPost(old));
+      }
+    }
   }
 
   onSaveEvent() {
-    this.aEventService.save(this.eventToEdit);
-    this.eventToEdit = Object.create(this.eventToEdit);
-    this.edited = false;
+    if (this.eventToEdit != null) {
+      this.aEventService.save(this.eventToEdit);
+      this.eventToEdit = Object.create(this.eventToEdit);
+      this.edited = false;
+    }
   }
 
   onDeleteEvent() {
@@ -71,7 +75,7 @@ export class Detail5Component implements OnInit, OnChanges, OnDestroy {
   onClearEvent() {
     if(!confirm("Do you want to clear the selected event?"))
       return;
-    this.eventToEdit.clear();
+    this.eventToEdit?.clear();
     this.edited = true;
   }
 

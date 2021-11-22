@@ -52,6 +52,7 @@ public class AEvent implements Comparable<AEvent> {
     int randomIndex = new Random().nextInt(7);
     String[] randTitle = new String[]{"Picnic at the park", "Jogging around", "Swimming at the beach", "Cycling in the woods", "Dancing in the streets", "Canoe at the zoo", "Skate and bake"};
     AEvent aEvent = new AEvent();
+    aEvent.id = getNextAvailableId();
     aEvent.title = randTitle[randomIndex];
     aEvent.participationFee = Math.round((Math.random() * 100.0f) * 100.0) / 100.0;
     aEvent.maxParticipants = Math.round(Math.random() * 1000);

@@ -12,26 +12,19 @@ export class AEventsSbService {
   private aEventsList: AEvent[] = [];
 
   constructor(private http: HttpClient) {
-    this.restGetAEvents().subscribe(data => {
-      for (let i = 0; i < data.length; i++) {
-        this.aEventsList.push(AEvent.trueCopy(data[i]));
-      }
-    })
   }
 
-  private restGetAEvents(): Observable<AEvent[]> {
+  public restGetAEvents() {
     return this.http
       .get<AEvent[]>(
         'http://localhost:8084/aevent', {responseType: 'json'}
       )
       .pipe(
         map(responseData => {
-          const AEventsArray: AEvent[] = [];
-          for (const key in responseData) {
-            // @ts-ignore
-            AEventsArray.push({...responseData[key]});
+          for (let i = 0; i < responseData.length; i++) {
+            this.aEventsList.push(responseData[i])
           }
-          return AEventsArray;
+          return this.aEventsList;
         }),
         catchError(errorRes => {
           return throwError(errorRes);
@@ -43,7 +36,7 @@ export class AEventsSbService {
     // @ts-ignore
     return this.http.post('http://localhost:8084/aevent', aEvent).subscribe(data => {
       return data;
-    },catchError(errorRes => {
+    }, catchError(errorRes => {
       return throwError(errorRes);
     }));
   }
@@ -53,7 +46,7 @@ export class AEventsSbService {
     // @ts-ignore
     return this.http.put(url, aEvent).subscribe(data => {
       return data;
-    },catchError(errorRes => {
+    }, catchError(errorRes => {
       return throwError(errorRes);
     }));
   }
@@ -62,19 +55,22 @@ export class AEventsSbService {
     const url = `http://localhost:8084/aevent/${aEventId}`;
     this.http.delete(url, {responseType: 'json'}).subscribe(data => {
       console.log("Deleted");
-    },catchError(errorRes => {
+    }, catchError(errorRes => {
       return throwError(errorRes);
     }));
   }
-
 
   findAll(): AEvent[] {
     return this.aEventsList;
   }
 
-  findById(id: number): AEvent | null {
-    const foundEvent = this.aEventsList.find(x => x.id == id);
-    return (foundEvent !== undefined) ? foundEvent : null;
+  findById(id: number) : AEvent | null {
+    for (let i = 0; i < this.aEventsList.length; i++) {
+      if (this.aEventsList[i].id == id)
+        // return this.aEventsList[i];
+        return AEvent.assignPost(this.aEventsList[i])
+    }
+    return null;
   }
 
   save(aEvent: AEvent): AEvent | null {

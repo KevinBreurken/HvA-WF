@@ -19,14 +19,14 @@ public class AEventsController {
   private final AEventsRepository repository;
 
   public AEventsController(){
-    repository = new AEventsRepositoryJpa();
+    repository = new AEventsRepositoryMock();
   }
 
   @GetMapping("aevent")
   public List<AEvent> getAllAEvents() {
-    if (repository.findAll().size() == 0) throw new ResourceNotFoundException("No events to be found.");
-
-    return repository.findAll();
+    List<AEvent> aEvents = repository.findAll();
+    if (aEvents.size() == 0) throw new ResourceNotFoundException("No events to be found.");
+    return aEvents;
   }
 
   @GetMapping("aevent/{id}")

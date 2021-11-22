@@ -12,6 +12,8 @@ import {AEventsSbService} from "../../../services/a-events-sb.service";
 })
 export class Overview5Component implements OnInit {
 
+  events : AEvent[] = []
+
   public selectedAEventId: number = -1;
 
   constructor(private router: Router, private route: ActivatedRoute, private aEventService: AEventsSbService) {
@@ -22,11 +24,10 @@ export class Overview5Component implements OnInit {
   }
 
   ngOnInit(): void {
-
-  }
-
-  allEvents() {
-    return this.aEventService.findAll();
+    this.aEventService.restGetAEvents().subscribe(data => {
+      for (let i = 0; i < data.length; i++)
+        this.events.push(data[i])
+    });
   }
 
   onAddEvent() {
@@ -43,7 +44,6 @@ export class Overview5Component implements OnInit {
     const command = this.route.snapshot.params['eventId'] != undefined ? ['../', this.selectedAEventId] : [this.selectedAEventId];
     this.router.navigate(command, {relativeTo: this.route});
   }
-
 
   cancelEvent(eventId: number) {
     this.deselectEventSelection();

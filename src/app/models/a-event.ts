@@ -17,30 +17,36 @@ export class AEvent {
   participationFee: number = 0;
   maxParticipants: number = 0;
 
-  constructor() {
+  // constructor() {
+  // }
+
+
+  constructor(id: number, title: String, start: Date, end: Date, description: String, status: aEventStatus, isTicketed: Boolean, participationFee: number, maxParticipants: number) {
+    this.id = id;
+    this.title = title;
+    this.start = start;
+    this.end = end;
+    this.description = description;
+    this.status = status;
+    this.isTicketed = isTicketed;
+    this.participationFee = participationFee;
+    this.maxParticipants = maxParticipants;
   }
 
   public static createRandomAEvent(): AEvent {
-    let newEvent = new AEvent();
-
-    //Title
-    newEvent.title = "Test Title";
-    //Start
-    newEvent.start = new Date(+(new Date()) - Math.floor(Math.random() * 10000000000));
-    //End
-    newEvent.end = new Date(+(new Date()) - Math.floor(Math.random() * 10000000000));
-
-    //Description
-    newEvent.description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos eveniet ipsam iste iure labore laudantium maxime neque pariatur perferendis, ut?";
-
-    newEvent.status = <aEventStatus>Object.keys(aEventStatus)[Math.floor(Math.random() * 3)];
-
+    let newEvent = new AEvent(
+      -1, "Test Title",
+      new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+      new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos eveniet ipsam iste iure labore laudantium maxime neque pariatur perferendis, ut?",
+      <aEventStatus>Object.keys(aEventStatus)[Math.floor(Math.random() * 3)],
+      false, 0, 0
+    );
     newEvent.isTicketed = Math.random() >= 0.5;
     if (newEvent.isTicketed) {
       newEvent.participationFee = Math.floor(Math.random() * 200);
       newEvent.maxParticipants = Math.floor(Math.random() * 1800);
     }
-
     return newEvent;
   }
 
@@ -59,7 +65,6 @@ export class AEvent {
   }
 
   public equals(other: AEvent) {
-
     if (this.title !== other.title)
       return false;
 
@@ -76,10 +81,25 @@ export class AEvent {
       return false;
 
     return this.maxParticipants === other.maxParticipants;
-
   }
 
   static trueCopy(aEvent: AEvent): AEvent {
-    return <AEvent>(aEvent == null ? null : Object.assign(new AEvent(), aEvent));
+    return <AEvent>(aEvent == null ? null : Object.assign(new AEvent(
+      -1, "Test Title",
+      new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+      new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos eveniet ipsam iste iure labore laudantium maxime neque pariatur perferendis, ut?",
+      <aEventStatus>Object.keys(aEventStatus)[Math.floor(Math.random() * 3)],
+      false, 0, 0
+    ), aEvent));
+  }
+
+  public static assignPost(aAevent : AEvent) {
+    return Object.assign(
+      new AEvent(
+        aAevent.id, aAevent.title, aAevent.start, aAevent.end, aAevent.description,
+        aAevent.status, aAevent.isTicketed, aAevent.participationFee, aAevent.maxParticipants
+      )
+    );
   }
 }

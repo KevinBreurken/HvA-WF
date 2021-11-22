@@ -17,7 +17,14 @@ export class Detail4Component implements OnInit, OnChanges, OnDestroy {
 
   private childParamsSubscription : Subscription | null = null;
 
-  eventToEdit: AEvent = new AEvent();
+  eventToEdit: AEvent = new AEvent(
+    -1, "Test Title",
+    new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+    new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+    "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos eveniet ipsam iste iure labore laudantium maxime neque pariatur perferendis, ut?",
+    <aEventStatus>Object.keys(aEventStatus)[Math.floor(Math.random() * 3)],
+    false, 0, 0
+  );
   edited: boolean = false;
 
   selectValues = Object.values(aEventStatus);
