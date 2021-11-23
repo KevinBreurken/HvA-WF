@@ -18,8 +18,8 @@ public class AEventsController {
 
   private final AEventsRepository repository;
 
-  public AEventsController(){
-    repository = new AEventsRepositoryMock();
+  public AEventsController(AEventsRepository aEventsRepository){
+    repository = aEventsRepository;
   }
 
   @GetMapping("aevent")
