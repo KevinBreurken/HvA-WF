@@ -25,28 +25,23 @@ public class AEventsRepositoryJpa implements AEventsRepository {
   }
 
   @Override
-  public AEvent findById(int id) {
+  public AEvent findById(long id) {
     return em.find(AEvent.class, id);
   }
 
   @Override
   public AEvent save(AEvent event) {
-    System.out.println("Help");
     return em.merge(event);
   }
 
   @Override
   public void update(AEvent aEvent) {
-    System.out.println("Hallo");
-    System.out.println(aEvent.getTitle());
-    System.out.println(aEvent.getID());
-    System.out.println(aEvent.getDescription());
     if (findById(aEvent.getID()) == null) save(aEvent);
     else em.merge(aEvent);
   }
 
   @Override
-  public boolean remove(int id) {
+  public boolean remove(long id) {
     AEvent foundEvent = em.find(AEvent.class, id);
     em.remove(foundEvent);
     return em.find(AEvent.class, id) == null;

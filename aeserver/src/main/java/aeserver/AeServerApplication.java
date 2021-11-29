@@ -1,8 +1,10 @@
 package aeserver;
 
 import aeserver.models.AEvent;
+import aeserver.models.Registration;
 import aeserver.repositories.AEventsRepository;
 import aeserver.repositories.AEventsRepositoryJpa;
+import aeserver.repositories.RegistrationsRepositoryJPA;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,6 +21,9 @@ public class AeServerApplication implements WebMvcConfigurer, CommandLineRunner 
   @Autowired
   private AEventsRepository aEventsRepository;
 
+  @Autowired
+  private RegistrationsRepositoryJPA registrationsRepositoryJPA;
+
 	public static void main(String[] args) {
 		SpringApplication.run(AeServerApplication.class, args);
 	}
@@ -30,8 +35,12 @@ public class AeServerApplication implements WebMvcConfigurer, CommandLineRunner 
 
   @Override
   public void run(String... args) throws Exception {
+    AEvent firstEvent = aEventsRepository.save(AEvent.createRandomAEvent());
     aEventsRepository.save(AEvent.createRandomAEvent());
     aEventsRepository.save(AEvent.createRandomAEvent());
-    aEventsRepository.save(AEvent.createRandomAEvent());
+
+    registrationsRepositoryJPA.save(Registration.createRandomRegistration(firstEvent));
+    registrationsRepositoryJPA.save(Registration.createRandomRegistration(firstEvent));
+    registrationsRepositoryJPA.save(Registration.createRandomRegistration(firstEvent));
   }
 }

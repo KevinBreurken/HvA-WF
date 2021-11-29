@@ -3,9 +3,8 @@ package aeserver.models;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.Date;
-import java.util.Objects;
-import java.util.Random;
+import javax.persistence.OneToMany;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Entity
@@ -14,7 +13,7 @@ public class AEvent implements Comparable<AEvent> {
 
   @Id
   @GeneratedValue
-  private int id;
+  private long id;
 
   private String title;
   private Date start;
@@ -25,6 +24,9 @@ public class AEvent implements Comparable<AEvent> {
   private boolean ticketed;
   private double participationFee = 0;
   private double maxParticipants = 0;
+
+  @OneToMany(mappedBy = "event")
+  private List<Registration> registrations = new ArrayList<>();
 
   public AEvent() {
   }
@@ -91,11 +93,11 @@ public class AEvent implements Comparable<AEvent> {
     this.title = message;
   }
 
-  public int getID() {
+  public long getID() {
     return id;
   }
 
-  public int setID(int id) {
+  public long setID(int id) {
     return this.id = id;
   }
 
@@ -155,9 +157,21 @@ public class AEvent implements Comparable<AEvent> {
     this.maxParticipants = maxParticipants;
   }
 
+  public List<Registration> getRegistrations() {
+    return registrations;
+  }
+
+  public void addRegistration(Registration registrations) {
+    this.registrations.add(registrations);
+  }
+
+  public void removeRegistration(Registration registrations) {
+    this.registrations.remove(registrations);
+  }
+
   @Override
   public int compareTo(AEvent o) {
-    return id - o.getID();
+    return (int) (id - o.getID());
   }
 
   @Override
