@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnChanges, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output} from '@angular/core';
 import {AEvent, aEventStatus} from "../../../models/a-event";
 import {ActivatedRoute, Params} from "@angular/router";
 import {Subscription} from "rxjs";
@@ -15,9 +15,9 @@ export class Detail5Component implements OnInit, OnChanges, OnDestroy {
   @Output() removeOutput = new EventEmitter<number>();
   @Output() cancelOutput = new EventEmitter<number>();
 
-  private childParamsSubscription : Subscription | null = null;
+  private childParamsSubscription: Subscription | null = null;
 
-  eventToEdit: AEvent = new AEvent(-1," ", new Date(), new Date(), " ", aEventStatus.PUBLISHED, false, 0, 0);
+  eventToEdit: AEvent = new AEvent(-1, " ", new Date(), new Date(), " ", aEventStatus.PUBLISHED, false, 0, 0);
   // eventToEdit : AEvent | null | undefined;
   edited: boolean = false;
 
@@ -28,15 +28,15 @@ export class Detail5Component implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     this.childParamsSubscription =
-    this.route.params
-      .subscribe(
-        (params: Params) => {
-          if (params['eventId'] != undefined) {
-            this.editedAEventId = params['eventId']
-            this.ngOnChanges()
+      this.route.params
+        .subscribe(
+          (params: Params) => {
+            if (params['eventId'] != undefined) {
+              this.editedAEventId = params['eventId']
+              this.ngOnChanges()
+            }
           }
-        }
-      );
+        );
   }
 
   public isEdited() {
@@ -50,22 +50,25 @@ export class Detail5Component implements OnInit, OnChanges, OnDestroy {
     if (this.editedAEventId !== -1 && this.eventToEdit?.id !== undefined) {
       let old = this.aEventService.findById(this.editedAEventId);
       if (old != null) {
-        console.log(this.eventToEdit.equals(AEvent.assignPost(old)))
-        this.edited = !this.eventToEdit.equals(AEvent.assignPost(old));
+        this.edited = !this.eventToEdit.equals(AEvent.assignAEvent(old));
       }
     }
   }
 
   onSaveEvent() {
     if (this.eventToEdit != null) {
-      this.aEventService.save(this.eventToEdit);
+      let copyToSend = AEvent.assignAEvent(this.eventToEdit);
+      copyToSend.id = this.editedAEventId;
+      this.aEventService.save(copyToSend).subscribe(data => {
+
+      });
       this.eventToEdit = Object.create(this.eventToEdit);
       this.edited = false;
     }
   }
 
   onDeleteEvent() {
-    if(!confirm("Do you want to delete the selected event?"))
+    if (!confirm("Do you want to delete the selected event?"))
       return;
 
     this.removeOutput.emit(this.editedAEventId);
@@ -73,14 +76,14 @@ export class Detail5Component implements OnInit, OnChanges, OnDestroy {
   }
 
   onClearEvent() {
-    if(!confirm("Do you want to clear the selected event?"))
+    if (!confirm("Do you want to clear the selected event?"))
       return;
     this.eventToEdit?.clear();
     this.edited = true;
   }
 
   onResetEvent() {
-    if(!confirm("Do you want to reset the selected event?"))
+    if (!confirm("Do you want to reset the selected event?"))
       return;
 
     this.eventToEdit = Object.create(this.aEventService.findById(this.editedAEventId));
@@ -88,7 +91,7 @@ export class Detail5Component implements OnInit, OnChanges, OnDestroy {
   }
 
   onCancelEvent() {
-    if(!confirm("Do you want to deselect the event that you've currently selected?"))
+    if (!confirm("Do you want to deselect the event that you've currently selected?"))
       return;
 
     this.cancelOutput.emit(this.editedAEventId);
@@ -104,4 +107,7 @@ export class Detail5Component implements OnInit, OnChanges, OnDestroy {
     this.childParamsSubscription?.unsubscribe()
   }
 
+  onElementsLoaded() {
+    this.ngOnChanges()
+  }
 }

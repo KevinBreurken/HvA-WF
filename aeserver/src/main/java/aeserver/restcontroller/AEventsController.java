@@ -1,11 +1,8 @@
 package aeserver.restcontroller;
 
-import aeserver.exceptions.PreConditionFailedException;
 import aeserver.exceptions.ResourceNotFoundException;
 import aeserver.models.AEvent;
 import aeserver.repositories.AEventsRepository;
-import aeserver.repositories.AEventsRepositoryJpa;
-import aeserver.repositories.AEventsRepositoryMock;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -38,9 +35,7 @@ public class AEventsController {
 
   @PostMapping("aevent")
   public ResponseEntity<AEvent> setEvent(@RequestBody AEvent event) {
-    if(event.getID() == 0)
-      event.setID(AEvent.getNextAvailableId());
-
+    System.out.println("ASd");
     AEvent savedEvent = repository.save(event);
 
     URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -49,26 +44,26 @@ public class AEventsController {
     return ResponseEntity.created(location).body(savedEvent);
   }
 
-  @PutMapping("aevent/{id}")
-  public ResponseEntity<AEvent> updateOrReplaceEvent(@RequestBody AEvent aEvent, @PathVariable int id) {
-    if (id != aEvent.getID()) throw new PreConditionFailedException("Id param is different to the id of the given event.");
-
-    URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-      .buildAndExpand(aEvent.getID()).toUri();
+  @PutMapping("aevent")
+  public ResponseEntity<AEvent> updateOrReplaceEvent(@RequestBody AEvent aEvent) {
+    System.out.println("Called Put Event");
 
     System.out.println(aEvent.getTitle());
+    System.out.println(aEvent.getID());
+    System.out.println(aEvent.getTicketed());
+    System.out.println(aEvent.getStatus());
     repository.update(aEvent);
 
     return ResponseEntity.ok(aEvent);
   }
 
   @DeleteMapping("aevent/{id}")
-  public ResponseEntity<AEvent> removeEvent(@PathVariable int id) {
+  public ResponseEntity<Boolean> removeEvent(@PathVariable int id) {
     if (repository.findById(id) == null) throw new ResourceNotFoundException("id-"+id);
 
-    AEvent aEvent = repository.remove(id);
+    boolean isRemoved = repository.remove(id);
 
-    return ResponseEntity.ok(aEvent);
+    return ResponseEntity.ok(isRemoved);
   }
 
 }

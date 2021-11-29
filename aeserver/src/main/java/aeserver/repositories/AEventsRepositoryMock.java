@@ -49,9 +49,8 @@ public class AEventsRepositoryMock implements AEventsRepository {
   }
 
   @Override
-  public AEvent remove(int id) {
+  public boolean remove(int id) {
     AEvent aEvent = findById(id);
-    aEventList.remove(aEvent);
-    return aEvent;
+    return aEventList.remove(aEvent);
   }
 }

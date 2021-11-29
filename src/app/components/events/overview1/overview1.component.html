@@ -17,13 +17,13 @@
       <td>{{event.title}}</td>
       <td>{{event.start}}</td>
       <td>{{event.end}}</td>
-      <td>{{getEventStatusType[event.status]}}</td>
+      <td>{{event.status}}</td>
 
-      <td *ngIf="event.isTicketed">{{event.participationFee}}</td>
-      <td *ngIf="!event.isTicketed">Free</td>
+      <td *ngIf="event.ticketed">{{event.participationFee}}</td>
+      <td *ngIf="!event.ticketed">Free</td>
 
-      <td *ngIf="event.isTicketed">{{event.maxParticipants}}</td>
-      <td *ngIf="!event.isTicketed"></td>
+      <td *ngIf="event.ticketed">{{event.maxParticipants}}</td>
+      <td *ngIf="!event.ticketed"></td>
     </tr>
     </tbody>
   </table>

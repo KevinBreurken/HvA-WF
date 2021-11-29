@@ -21,6 +21,7 @@ export class AEventsSbService {
       )
       .pipe(
         map(responseData => {
+          this.aEventsList = [];
           for (let i = 0; i < responseData.length; i++) {
             this.aEventsList.push(responseData[i])
           }
@@ -33,28 +34,24 @@ export class AEventsSbService {
   }
 
   private restPostAEvent(aEvent: AEvent): Observable<AEvent> {
-    // @ts-ignore
-    return this.http.post('http://localhost:8084/aevent', aEvent).subscribe(data => {
-      return data;
-    }, catchError(errorRes => {
-      return throwError(errorRes);
-    }));
+    return this.http.post<AEvent>('http://localhost:8084/aevent', aEvent);
   }
 
   private restPutAEvent(aEvent: AEvent): Observable<AEvent> {
-    const url = `http://localhost:8084/aevent/${aEvent.id}`;
-    // @ts-ignore
-    return this.http.put(url, aEvent).subscribe(data => {
-      return data;
-    }, catchError(errorRes => {
-      return throwError(errorRes);
-    }));
+    return this.http.put<AEvent>('http://localhost:8084/aevent', aEvent);
   }
 
   private restDeleteAEvent(aEventId: number): void {
     const url = `http://localhost:8084/aevent/${aEventId}`;
     this.http.delete(url, {responseType: 'json'}).subscribe(data => {
-      console.log("Deleted");
+      if (data == false) return;
+
+      for (let i = 0; i < this.aEventsList.length; i++) {
+        if (this.aEventsList[i].id == aEventId) {
+          this.aEventsList.splice(i, 1);
+          break;
+        }
+      }
     }, catchError(errorRes => {
       return throwError(errorRes);
     }));
@@ -64,46 +61,31 @@ export class AEventsSbService {
     return this.aEventsList;
   }
 
-  findById(id: number) : AEvent | null {
+  findById(id: number): AEvent | null {
     for (let i = 0; i < this.aEventsList.length; i++) {
       if (this.aEventsList[i].id == id)
-        // return this.aEventsList[i];
-        return AEvent.assignPost(this.aEventsList[i])
+        return AEvent.assignAEvent(this.aEventsList[i])
     }
     return null;
   }
 
-  save(aEvent: AEvent): AEvent | null {
-    const foundEvent = this.findById(aEvent.id);
-    if (foundEvent) {
-      //TODO: This wont work for some reason.
+  save(aEvent: AEvent): Observable<AEvent> {
 
-      // this.restPutAEvent(aEvent).subscribe(data => {
-      //   const position = this.aEventsList.indexOf(foundEvent);
-      //   this.aEventsList[position] = aEvent;
-      // });
+    if (aEvent.id !== -1) {
+      //Replaces element in the local list
+      for (let i = 0; i < this.aEventsList.length; i++) {
+        if (this.aEventsList[i].id == aEvent.id) {
+          this.aEventsList.splice(i, 1, aEvent);
+          break;
+        }
+      }
 
-      //Send to backend
-      let copy = AEvent.trueCopy(aEvent);
-      copy.id = aEvent.id;
-
-      this.restPutAEvent(copy);
-      //Update frontend
-      const position = this.aEventsList.indexOf(foundEvent);
-      this.aEventsList[position] = aEvent;
+      return this.restPutAEvent(aEvent);
     } else {
-      //TODO: same here
 
-      // this.restPostAEvent(aEvent).subscribe(data => {
-      //   this.aEventsList.push(aEvent);
-      // });
-
-      this.restPostAEvent(aEvent);
       this.aEventsList.push(aEvent);
-
+      return this.restPostAEvent(aEvent);
     }
-
-    return foundEvent;
   }
 
   deleteById(eId: number): AEvent | null {
@@ -111,10 +93,6 @@ export class AEventsSbService {
 
     if (eventToDelete) {
       this.restDeleteAEvent(eId);
-      this.aEventsList.splice(
-        this.aEventsList.indexOf(eventToDelete),
-        1
-      );
     }
 
     return eventToDelete;

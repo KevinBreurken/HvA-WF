@@ -9,5 +9,5 @@ public interface AEventsRepository {
   AEvent findById(int id);
   AEvent save(AEvent event);
   void update(AEvent aEvent);
-  AEvent remove(int id);
+  boolean remove(int id);
 }

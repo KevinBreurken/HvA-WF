@@ -20,7 +20,9 @@ public class AEvent implements Comparable<AEvent> {
   private Date start;
   private Date end;
   private String description = "";
-  private boolean isTicketed = false;
+  private String status;
+
+  private boolean ticketed;
   private double participationFee = 0;
   private double maxParticipants = 0;
 
@@ -34,14 +36,15 @@ public class AEvent implements Comparable<AEvent> {
     setID(AEvent.nextAvailableId++);
   }
 
-  public AEvent(String title, Date start, Date end, String description, boolean isTicketed, double participationFee, double maxParticipants) {
+  public AEvent(String title, Date start, Date end, String description, boolean ticketed, double participationFee, double maxParticipants,String status) {
     this.title = title;
     this.start = start;
     this.end = end;
     this.description = description;
-    this.isTicketed = isTicketed;
     this.participationFee = participationFee;
     this.maxParticipants = maxParticipants;
+    this.ticketed = ticketed;
+    this.status = status;
   }
 
   public static int getNextAvailableId() {
@@ -59,6 +62,7 @@ public class AEvent implements Comparable<AEvent> {
 
     aEvent.start = AEvent.dateBetween(new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis() + 999999999));
     aEvent.end = AEvent.dateBetween(new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis() + 999999999));
+    aEvent.status = "DRAFT";
     return aEvent;
   }
 
@@ -119,12 +123,20 @@ public class AEvent implements Comparable<AEvent> {
     this.description = description;
   }
 
-  public boolean isTicketed() {
-    return isTicketed;
+  public String getStatus() {
+    return status;
   }
 
-  public void setTicketed(boolean ticketed) {
-    isTicketed = ticketed;
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+  public Boolean getTicketed() {
+    return ticketed;
+  }
+
+  public void setTicketed(Boolean ticketed) {
+    this.ticketed = ticketed;
   }
 
   public double getParticipationFee() {
@@ -155,7 +167,7 @@ public class AEvent implements Comparable<AEvent> {
 
   @Override
   public int hashCode() {
-    return Objects.hash(title, id, start, end, description, isTicketed, participationFee, maxParticipants);
+    return Objects.hash(title, id, start, end, description, ticketed, participationFee, maxParticipants, status);
   }
 }
 

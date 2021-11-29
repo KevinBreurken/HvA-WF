@@ -11,9 +11,9 @@ export class AEvent {
   start: Date = new Date();
   end: Date = new Date();
   description: String = "";
-  status: aEventStatus = aEventStatus.DRAFT;
+  status: String = aEventStatus.DRAFT;
   //optional
-  isTicketed: Boolean = false;
+  ticketed: Boolean = false;
   participationFee: number = 0;
   maxParticipants: number = 0;
 
@@ -21,14 +21,14 @@ export class AEvent {
   // }
 
 
-  constructor(id: number, title: String, start: Date, end: Date, description: String, status: aEventStatus, isTicketed: Boolean, participationFee: number, maxParticipants: number) {
+  constructor(id: number, title: String, start: Date, end: Date, description: String, status: String, isTicketed: Boolean, participationFee: number, maxParticipants: number) {
     this.id = id;
     this.title = title;
     this.start = start;
     this.end = end;
     this.description = description;
     this.status = status;
-    this.isTicketed = isTicketed;
+    this.ticketed = isTicketed;
     this.participationFee = participationFee;
     this.maxParticipants = maxParticipants;
   }
@@ -42,8 +42,8 @@ export class AEvent {
       <aEventStatus>Object.keys(aEventStatus)[Math.floor(Math.random() * 3)],
       false, 0, 0
     );
-    newEvent.isTicketed = Math.random() >= 0.5;
-    if (newEvent.isTicketed) {
+    newEvent.ticketed = Math.random() >= 0.5;
+    if (newEvent.ticketed) {
       newEvent.participationFee = Math.floor(Math.random() * 200);
       newEvent.maxParticipants = Math.floor(Math.random() * 1800);
     }
@@ -59,7 +59,7 @@ export class AEvent {
     this.start = new Date(Date.now());
     this.end = new Date(Date.now());
 
-    this.isTicketed = false;
+    this.ticketed = false;
     this.participationFee = 0;
     this.maxParticipants = 0;
   }
@@ -74,7 +74,7 @@ export class AEvent {
     if (this.status !== other.status)
       return false;
 
-    if (this.isTicketed !== other.isTicketed)
+    if (this.ticketed !== other.ticketed)
       return false;
 
     if (this.participationFee !== other.participationFee)
@@ -84,6 +84,7 @@ export class AEvent {
   }
 
   static trueCopy(aEvent: AEvent): AEvent {
+    console.log()
     return <AEvent>(aEvent == null ? null : Object.assign(new AEvent(
       -1, "Test Title",
       new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
@@ -94,11 +95,11 @@ export class AEvent {
     ), aEvent));
   }
 
-  public static assignPost(aAevent : AEvent) {
+  public static assignAEvent(aAevent : AEvent) {
     return Object.assign(
       new AEvent(
         aAevent.id, aAevent.title, aAevent.start, aAevent.end, aAevent.description,
-        aAevent.status, aAevent.isTicketed, aAevent.participationFee, aAevent.maxParticipants
+        aAevent.status, aAevent.ticketed, aAevent.participationFee, aAevent.maxParticipants
       )
     );
   }
