@@ -7,17 +7,16 @@ import java.util.concurrent.ThreadLocalRandom;
 @Entity
 @NamedQueries({
   @NamedQuery(name = "AEvent-get_all_events", query = "Select a From AEvent a"),
-  @NamedQuery(name = "AEvent_find_by_status", query = "Select a From AEvent a where status = ?1"),
   @NamedQuery(name = "AEvent_find_by_title", query = "Select a From AEvent a where title = ?1"),
-  @NamedQuery(name = "AEvent_find_by_minRegistrations", query = "")
+  @NamedQuery(name = "AEvent_find_by_status", query = "Select a From AEvent a where status = ?1"),
+//  @NamedQuery(name = "AEvent_find_by_minRegistrations", query = "Select a From AEvent a where r.event.id = ?1")
 })
 public class AEvent implements Comparable<AEvent> {
   private static int nextAvailableId = 20001;
-
+  private static String[] allowedStatusses = {"DRAFT", "PUBLISHED", "CANCELED"};
   @Id
   @GeneratedValue
   private long id;
-
   private String title;
   private Date start;
   private Date end;
@@ -86,6 +85,14 @@ public class AEvent implements Comparable<AEvent> {
       .nextLong(startMillis, endMillis);
 
     return new Date(randomMillisSinceEpoch);
+  }
+
+  public static boolean isStatusValid(String status) {
+    for (String allowedStatus : allowedStatusses) {
+      if (allowedStatus.equals(status))
+        return true;
+    }
+    return false;
   }
 
   public String getTitle() {

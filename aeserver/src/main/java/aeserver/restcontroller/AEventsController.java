@@ -5,12 +5,15 @@ import aeserver.models.AEvent;
 import aeserver.models.Registration;
 import aeserver.repositories.AEventsRepository;
 import aeserver.repositories.RegistrationsRepositoryJPA;
+import org.hibernate.procedure.ParameterMisuseException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class AEventsController {
@@ -18,21 +21,42 @@ public class AEventsController {
   private final AEventsRepository repository;
   private final RegistrationsRepositoryJPA registrationsRepositoryJPA;
 
-  public AEventsController(AEventsRepository aEventsRepository, RegistrationsRepositoryJPA registrationsRepositoryJPA){
+  public AEventsController(AEventsRepository aEventsRepository, RegistrationsRepositoryJPA registrationsRepositoryJPA) {
     repository = aEventsRepository;
     this.registrationsRepositoryJPA = registrationsRepositoryJPA;
   }
 
   @GetMapping("aevent")
-  public List<AEvent> getAllAEvents() {
-    List<AEvent> aEvents = repository.findAll();
+
+  public List<AEvent> getAllAEvents(@RequestParam Optional<String> title, @RequestParam Optional<String> status, @RequestParam Optional<Integer> minRegistrations) throws Exception {
+
+    int activeParamAmount = (title.isPresent() ? 1 : 0) + (status.isPresent() ? 1 : 0) + (minRegistrations.isPresent() ? 1 : 0);
+    if (activeParamAmount > 1)
+      throw new ParameterMisuseException("Too many requestParams assigned. only one is allowed");
+
+    List<AEvent> aEvents = new ArrayList<>();
+
+    if (title.isPresent())
+      aEvents = repository.findByQuery("AEvent_find_by_title", title.get());
+    if (status.isPresent()) {
+      if (!AEvent.isStatusValid(status.get())) {
+        throw new Exception(String.format("Status of name %s is not a valid statusName.", status.get()));
+      }
+      aEvents = repository.findByQuery("AEvent_find_by_status", status.get());
+    }
+    if (minRegistrations.isPresent())
+      aEvents = repository.findByQuery("AEvent_find_by_status", minRegistrations.get());
+
+    if (activeParamAmount == 0)
+      aEvents = repository.findAll();
+
     if (aEvents.size() == 0) throw new ResourceNotFoundException("No events to be found.");
     return aEvents;
   }
 
   @GetMapping("aevent/{id}")
-  public AEvent getEvent(@PathVariable long id){
-    if (repository.findById(id) == null) throw new ResourceNotFoundException("id-"+id);
+  public AEvent getEvent(@PathVariable long id) {
+    if (repository.findById(id) == null) throw new ResourceNotFoundException("id-" + id);
 
     return repository.findById(id);
   }
@@ -41,10 +65,10 @@ public class AEventsController {
   public ResponseEntity<Registration> addRegistration(@PathVariable long id) {
 
     AEvent savedEvent = repository.findById(id);
-    if(savedEvent.getStatus().equals("PUBLISHED"))
+    if (savedEvent.getStatus().equals("PUBLISHED"))
       throw new RuntimeException("Event is already published.");
 
-    if(savedEvent.getRegistrations().size() >= savedEvent.getMaxParticipants())
+    if (savedEvent.getRegistrations().size() >= savedEvent.getMaxParticipants())
       throw new RuntimeException("Too many registration for this event.");
 
     Registration registration = new Registration(savedEvent);
@@ -74,7 +98,7 @@ public class AEventsController {
 
   @DeleteMapping("aevent/{id}")
   public ResponseEntity<Boolean> removeEvent(@PathVariable int id) {
-    if (repository.findById(id) == null) throw new ResourceNotFoundException("id-"+id);
+    if (repository.findById(id) == null) throw new ResourceNotFoundException("id-" + id);
 
     boolean isRemoved = repository.remove(id);
 

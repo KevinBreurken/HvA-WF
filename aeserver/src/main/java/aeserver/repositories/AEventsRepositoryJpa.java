@@ -53,8 +53,9 @@ public class AEventsRepositoryJpa implements AEventsRepository {
   public List<AEvent> findByQuery(String jpqlName, Object... params) {
     TypedQuery<AEvent> query = em.createNamedQuery(jpqlName,AEvent.class);
     for (int i = 0; i < params.length; i++){
-      query.setParameter(i,params[i]);
+      query.setParameter(i+1,params[i]);
     }
     return query.getResultList();
   }
+
 }
