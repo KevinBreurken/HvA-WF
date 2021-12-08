@@ -52,4 +52,9 @@ public class AEventsRepositoryMock implements AEventsRepository {
     AEvent aEvent = findById(id);
     return aEventList.remove(aEvent);
   }
+
+  @Override
+  public List<AEvent> findByQuery(String jpqlName, Object... params) {
+    return null;
+  }
 }

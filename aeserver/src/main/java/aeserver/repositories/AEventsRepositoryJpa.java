@@ -1,10 +1,12 @@
 package aeserver.repositories;
 
 import aeserver.models.AEvent;
+import aeserver.models.Registration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class AEventsRepositoryJpa implements AEventsRepository {
 
   @Override
   public List<AEvent> findAll() {
-    return (List<AEvent>) em.createQuery("SELECT e FROM AEvent e").getResultList();
+    return findByQuery("AEvent-get_all_events");
   }
 
   @Override
@@ -45,5 +47,14 @@ public class AEventsRepositoryJpa implements AEventsRepository {
     AEvent foundEvent = em.find(AEvent.class, id);
     em.remove(foundEvent);
     return em.find(AEvent.class, id) == null;
+  }
+
+  @Override
+  public List<AEvent> findByQuery(String jpqlName, Object... params) {
+    TypedQuery<AEvent> query = em.createNamedQuery(jpqlName,AEvent.class);
+    for (int i = 0; i < params.length; i++){
+      query.setParameter(i,params[i]);
+    }
+    return query.getResultList();
   }
 }

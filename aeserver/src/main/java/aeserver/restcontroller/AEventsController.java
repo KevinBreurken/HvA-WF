@@ -40,10 +40,7 @@ public class AEventsController {
   @PostMapping("aevent/{id}/register")
   public ResponseEntity<Registration> addRegistration(@PathVariable long id) {
 
-    System.out.println(id);
-    System.out.println("AElement");
     AEvent savedEvent = repository.findById(id);
-    System.out.println(savedEvent);
     if(savedEvent.getStatus().equals("PUBLISHED"))
       throw new RuntimeException("Event is already published.");
 
