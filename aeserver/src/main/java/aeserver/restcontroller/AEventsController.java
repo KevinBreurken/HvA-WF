@@ -45,7 +45,7 @@ public class AEventsController {
       aEvents = repository.findByQuery("AEvent_find_by_status", status.get());
     }
     if (minRegistrations.isPresent())
-      aEvents = repository.findByQuery("AEvent_find_by_status", minRegistrations.get());
+      aEvents = repository.findByQuery("AEvent_find_by_minRegistrations", minRegistrations.get());
 
     if (activeParamAmount == 0)
       aEvents = repository.findAll();
