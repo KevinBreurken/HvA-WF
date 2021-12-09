@@ -8,4 +8,7 @@ public interface BaseRepository<T> {
   T save(T element);
   void update(T element);
   boolean remove(long id);
+
+  List<T> findByQuery(String jpqlName, Object... params);
+
 }

@@ -1,20 +1,22 @@
 package aeserver.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Entity
+@NamedQueries({
+  @NamedQuery(name = "AEvent-get_all_events", query = "Select a From AEvent a"),
+  @NamedQuery(name = "AEvent_find_by_title", query = "Select a From AEvent a where a.title = ?1"),
+  @NamedQuery(name = "AEvent_find_by_status", query = "Select a From AEvent a where a.status = ?1"),
+  @NamedQuery(name = "AEvent_find_by_minRegistrations", query = "Select a From AEvent a where a.registrations.size >= ?1")
+})
 public class AEvent implements Comparable<AEvent> {
   private static int nextAvailableId = 20001;
-
+  private static String[] allowedStatusses = {"DRAFT", "PUBLISHED", "CANCELED"};
   @Id
   @GeneratedValue
   private long id;
-
   private String title;
   private Date start;
   private Date end;
@@ -38,7 +40,7 @@ public class AEvent implements Comparable<AEvent> {
     setID(AEvent.nextAvailableId++);
   }
 
-  public AEvent(String title, Date start, Date end, String description, boolean ticketed, double participationFee, double maxParticipants,String status) {
+  public AEvent(String title, Date start, Date end, String description, boolean ticketed, double participationFee, double maxParticipants, String status) {
     this.title = title;
     this.start = start;
     this.end = end;
@@ -83,6 +85,14 @@ public class AEvent implements Comparable<AEvent> {
       .nextLong(startMillis, endMillis);
 
     return new Date(randomMillisSinceEpoch);
+  }
+
+  public static boolean isStatusValid(String status) {
+    for (String allowedStatus : allowedStatusses) {
+      if (allowedStatus.equals(status))
+        return true;
+    }
+    return false;
   }
 
   public String getTitle() {

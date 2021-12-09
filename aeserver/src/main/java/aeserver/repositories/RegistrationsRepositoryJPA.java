@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -44,5 +46,15 @@ public class RegistrationsRepositoryJPA implements BaseRepository<Registration> 
     Registration foundEvent = em.find(Registration.class, id);
     em.remove(foundEvent);
     return em.find(Registration.class, id) == null;
+  }
+
+  @Override
+  public List<Registration> findByQuery(String jpqlName, Object... params) {
+
+    TypedQuery<Registration> query = em.createNamedQuery(jpqlName,Registration.class);
+    for (int i = 0; i < params.length; i++){
+      query.setParameter(i,params[i]);
+    }
+    return query.getResultList();
   }
 }
