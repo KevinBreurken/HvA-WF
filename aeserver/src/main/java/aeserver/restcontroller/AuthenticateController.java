@@ -1,5 +1,6 @@
 package aeserver.restcontroller;
 
+import aeserver.exceptions.UnAuthorizedException;
 import aeserver.models.User;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.http.HttpStatus;
@@ -17,13 +18,9 @@ public class AuthenticateController {
     String email = json.get("eMail").asText();
     String passWord = json.get("passWord").asText();
 
-    if (passWord.equals(email.split("@")[0])) {
+    if (passWord.equals(email.split("@")[0]))
       return ResponseEntity.accepted().body(new User(email, passWord));
-    } else {
-      //TODO trow a UnAuthorizedException()
-//    throw new UnAuthorizedException();
-      return null;
-    }
+    else throw new UnAuthorizedException("Cannot authenticate user by email=" + email + " and password=" + passWord);
 
   }
 }
