@@ -35,12 +35,12 @@ public class AeServerApplication implements WebMvcConfigurer, CommandLineRunner 
 
   @Override
   public void run(String... args) throws Exception {
-    AEvent firstEvent = aEventsRepository.save(AEvent.createRandomAEvent());
+    AEvent event = aEventsRepository.save(AEvent.createRandomAEvent());
     aEventsRepository.save(AEvent.createRandomAEvent());
     aEventsRepository.save(AEvent.createRandomAEvent());
 
-    registrationsRepositoryJPA.save(Registration.createRandomRegistration(firstEvent));
-    registrationsRepositoryJPA.save(Registration.createRandomRegistration(firstEvent));
-    registrationsRepositoryJPA.save(Registration.createRandomRegistration(firstEvent));
+    registrationsRepositoryJPA.save(Registration.createRandomRegistration(event));
+    registrationsRepositoryJPA.save(Registration.createRandomRegistration(event));
+    registrationsRepositoryJPA.save(Registration.createRandomRegistration(event));
   }
 }
