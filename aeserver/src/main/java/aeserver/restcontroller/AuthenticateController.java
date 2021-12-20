@@ -1,8 +1,9 @@
 package aeserver.restcontroller;
 
-import aeserver.JWToken;
 import aeserver.exceptions.UnAuthorizedException;
+import aeserver.helpers.APIConfig;
 import aeserver.models.User;
+import aeserver.security.JWToken;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticateController {
 
   @Autowired
-  JWToken tokengenerator;
+  APIConfig appConfig;
 
   @PostMapping("authenticate/login")
   public ResponseEntity<User> login(@RequestBody ObjectNode json) {
@@ -24,7 +25,8 @@ public class AuthenticateController {
 
     if (passWord.equals(email.split("@")[0])) {
       User user = new User(email, passWord);
-      String tokenString = tokengenerator.encode(user.getName(),user.getId().toString(),user.isAdmin());
+      JWToken token = new JWToken(user.getName(),user.getEmail(),user.getId(), user.isAdmin());
+      String tokenString = token.encode(appConfig.issuer, appConfig.passphrase,appConfig.expiration);
       return ResponseEntity.accepted().header(HttpHeaders.AUTHORIZATION, "Bearer " + tokenString).body(user);
     } else throw new UnAuthorizedException("Cannot authenticate user by email=" + email + " and password=" + passWord);
 
