@@ -27,7 +27,6 @@ public class AEventsController {
   }
 
   @GetMapping("aevent")
-
   public List<AEvent> getAllAEvents(@RequestParam Optional<String> title, @RequestParam Optional<String> status, @RequestParam Optional<Integer> minRegistrations) throws Exception {
 
     int activeParamAmount = (title.isPresent() ? 1 : 0) + (status.isPresent() ? 1 : 0) + (minRegistrations.isPresent() ? 1 : 0);
