@@ -20,8 +20,9 @@ public class AuthenticateController {
 
   @PostMapping("authenticate/login")
   public ResponseEntity<User> login(@RequestBody ObjectNode json) {
-    String email = json.get("eMail").asText();
-    String passWord = json.get("passWord").asText();
+    System.out.println(json);
+    String email = json.get("eMail") == null  ? null : json.get("eMail").asText();
+    String passWord = json.get("passWord") == null  ? null : json.get("passWord").asText();
 
     if (passWord.equals(email.split("@")[0])) {
       User user = new User(email, passWord);

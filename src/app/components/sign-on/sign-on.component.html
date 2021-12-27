@@ -1,0 +1,13 @@
+<div id="event-table" class="bg-white m-sm-0 m-lg-5">
+  <form [formGroup]="loginForm" (submit)="onSubmit()" style="width: 300px" class="m-4 pt-4 pb-4">
+    <div class="form-group">
+      <label for="exampleInputEmail1"><b>Login</b></label>
+      <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" formControlName="password" id="exampleInputPassword1" placeholder="Password">
+    </div>
+    <button type="submit" class="btn  btn-primary border-dark mt-4">Login</button>
+  </form>
+</div>

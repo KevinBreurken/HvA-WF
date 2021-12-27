@@ -17,13 +17,14 @@ export class SessionSbService {
 
   constructor(private http: HttpClient) {
     this.getTokenFromSessionStorage();
+    this.updateUserInformation();
   }
 
   public signOn(email: string, password: string) {
     console.log("login " + email + "/" + password);
 
     let observable = this.http.post<HttpResponse<User>>(this.BACKEND_AUTH_URL + "/login", {
-        email: email,
+        eMail: email,
         passWord: password
       },
       {observe: "response"}).pipe(share());
@@ -48,7 +49,6 @@ export class SessionSbService {
 
   public signOff() {
     sessionStorage.removeItem("token");
-
   }
 
   public isAuthenticated(): boolean {
@@ -67,9 +67,8 @@ export class SessionSbService {
       const decodedToken = this.jwtService.decodeToken(currentToken);
 
       this.currentUser = new User();
-      this.currentUser.email = decodedToken.sub;
-      this.currentUser.admin = decodedToken.admin.toLowerCase() === 'true';
-      this.currentUser.exp = decodedToken.exp;
+      this.currentUser.name = decodedToken.name;
+      this.currentUser.email = decodedToken.email;
 
     } else {
       this.currentUser = null;
