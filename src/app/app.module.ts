@@ -4,7 +4,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HeaderComponent} from './components/mainpage/header/header.component';
 import {HomeComponent} from './components/mainpage/home/home.component';
 import {EventCardComponent} from './components/mainpage/event-card/event-card.component';
@@ -21,10 +21,13 @@ import { Detail4Component } from './components/events/detail4/detail4.component'
 import {Detail5Component} from "./components/events/detail5/detail5.component";
 import {Overview5Component} from "./components/events/overview5/overview5.component";
 import {AEventsSbService} from "./services/a-events-sb.service";
+import { HeaderSbComponent } from './components/mainpage/header-sb/header-sb.component';
+import { SignOnComponent } from './components/sign-on/sign-on.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'home', component: HomeComponent},
+  {path: 'sign-on', component: SignOnComponent},
   {path: 'events/overview1', component: Overview1Component},
   {path: 'events/overview2', component: Overview2Component},
   {path: 'events/overview3', component: Overview3Component},
@@ -51,15 +54,18 @@ const appRoutes: Routes = [
     ErrorComponent,
     Overview4Component,
     Detail4Component,
-    Detail5Component
+    Detail5Component,
+    HeaderSbComponent,
+    SignOnComponent
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    NgbModule,
-    RouterModule.forRoot(appRoutes, {useHash: true}),
-    HttpClientModule
-  ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        NgbModule,
+        RouterModule.forRoot(appRoutes, {useHash: true}),
+        HttpClientModule,
+        ReactiveFormsModule
+    ],
   providers: [AEventsService, AEventsSbService],
   bootstrap: [AppComponent]
 })

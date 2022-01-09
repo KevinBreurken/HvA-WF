@@ -8,6 +8,7 @@
     </a>
     <!-- Title Text -->
     <h1 class="site-title">{{title}}</h1>
+    <div *ngIf="session?.isAuthenticated()" class="name-display">Welkom {{session?.currentUser?.name}}</div>
     <!-- Right Logo -->
     <a class="d-none d-md-block navbar-brand pull-right" href="https://www.hva.nl/">
       <a class="nav-subtitle" id="logo-subtitle">{{subtitleLogo}}</a>
@@ -44,8 +45,9 @@
       </div>
       <button type="button" class="btn btn-primary">My Account</button>
       <div class="w-100"></div>
-      <button type="button" class="btn btn-primary pull-left" routerLink="/signup">Sign Up</button>
-      <button type="button" class="btn btn-primary" routerLink="/login">Log In</button>
+      <button *ngIf="!session.isAuthenticated()" type="button" class="btn btn-primary pull-left" routerLink="/signup">Sign Up</button>
+      <button *ngIf="!session.isAuthenticated()" type="button" class="btn btn-primary" routerLink="/sign-on">Log In</button>
+      <button *ngIf="session.isAuthenticated()" type="button" class="btn btn-primary" (click)="onLogoutClicked()">Log out</button>
     </div>
   </nav>
 </div>
