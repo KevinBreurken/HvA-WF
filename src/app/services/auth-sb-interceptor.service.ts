@@ -12,18 +12,19 @@ export class AuthSbInterceptorService implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log("Intercepting")
+    console.log("Intercept"); //Log for confirmation
 
     let token = this.session.getTokenFromSessionStorage();
 
     if (token != null) {
-      console.log("Cloning")
       req = req.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`
         }
       });
     }
+
+    console.log(req); //Log for confirmation
 
     return next.handle(req);
   }

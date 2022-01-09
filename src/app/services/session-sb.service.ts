@@ -30,16 +30,18 @@ export class SessionSbService {
       {observe: "response"}).pipe(share());
 
     observable.subscribe(response => {
-
       let token = response["headers"].get("Authorization");
 
-      if(token == null)
+      if (token == null)
         throw new Error("token was not present in the response");
+
+      console.log(token) //Log for confirmation
 
       token = token.replace("Bearer", "");
 
-      sessionStorage.setItem("token",token);
-      sessionStorage.setItem("username", email.split("@")[0]);
+      //Setting the session items.
+      this.saveTokenIntoSessionStorage(token);
+      this.saveUsernameIntoSessionStorage(email.split("@")[0]);
 
       this.updateUserInformation();
     }, error => {
@@ -56,17 +58,26 @@ export class SessionSbService {
     return this.getTokenFromSessionStorage() != null;
   }
 
+  public saveTokenIntoSessionStorage(token: any) {
+    sessionStorage.setItem("token", token);
+  }
+
+  public saveUsernameIntoSessionStorage(username: any) {
+    sessionStorage.setItem("username", username);
+  }
+
   public getTokenFromSessionStorage(): string | null {
     return sessionStorage.getItem("token");
   }
 
   private updateUserInformation(): void {
-
     const currentToken = this.getTokenFromSessionStorage();
+
     if (currentToken) {
 
       const decodedToken = this.jwtService.decodeToken(currentToken);
 
+      //Set the user in the front-end
       this.currentUser = new User();
       this.currentUser.name = decodedToken.name;
       this.currentUser.email = decodedToken.email;
