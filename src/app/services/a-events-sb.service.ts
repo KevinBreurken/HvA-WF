@@ -17,7 +17,7 @@ export class AEventsSbService {
   public restGetAEvents() {
     return this.http
       .get<AEvent[]>(
-        'http://localhost:8084/aevent', {responseType: 'json'}
+        'http://localhost:8084/aevents', {responseType: 'json'}
       )
       .pipe(
         map(responseData => {
@@ -42,12 +42,15 @@ export class AEventsSbService {
   }
 
   private restDeleteAEvent(aEventId: number): void {
+    console.log(aEventId)
     const url = `http://localhost:8084/aevent/${aEventId}`;
     this.http.delete(url, {responseType: 'json'}).subscribe(data => {
       if (data == false) return;
 
       for (let i = 0; i < this.aEventsList.length; i++) {
         if (this.aEventsList[i].id == aEventId) {
+          console.log(i);
+          console.log(this.aEventsList)
           this.aEventsList.splice(i, 1);
           break;
         }

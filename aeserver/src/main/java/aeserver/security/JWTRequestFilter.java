@@ -21,7 +21,7 @@ public class JWTRequestFilter extends OncePerRequestFilter {
   APIConfig apiConfig;
 
   private static final Set<String> SECURED_PATHS =
-    Set.of("/aevent", "/registrations", "/users");
+    Set.of("/aevent/", "/registrations", "/users");
 
 
   @Override

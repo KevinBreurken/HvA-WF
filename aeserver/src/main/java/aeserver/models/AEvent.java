@@ -1,5 +1,7 @@
 package aeserver.models;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -27,7 +29,8 @@ public class AEvent implements Comparable<AEvent> {
   private double participationFee = 0;
   private double maxParticipants = 0;
 
-  @OneToMany(mappedBy = "event")
+  @OneToMany(mappedBy = "event", orphanRemoval = true)
+  @Cascade({org.hibernate.annotations.CascadeType.PERSIST, org.hibernate.annotations.CascadeType.REMOVE})
   private List<Registration> registrations = new ArrayList<>();
 
   public AEvent() {

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 public class AEventsController {
 
@@ -26,7 +27,7 @@ public class AEventsController {
     this.registrationsRepositoryJPA = registrationsRepositoryJPA;
   }
 
-  @GetMapping("aevent")
+  @GetMapping("aevents")
   public List<AEvent> getAllAEvents(@RequestParam Optional<String> title, @RequestParam Optional<String> status, @RequestParam Optional<Integer> minRegistrations) throws Exception {
 
     int activeParamAmount = (title.isPresent() ? 1 : 0) + (status.isPresent() ? 1 : 0) + (minRegistrations.isPresent() ? 1 : 0);
@@ -98,6 +99,9 @@ public class AEventsController {
   @DeleteMapping("aevent/{id}")
   public ResponseEntity<Boolean> removeEvent(@PathVariable int id) {
     if (repository.findById(id) == null) throw new ResourceNotFoundException("id-" + id);
+
+    AEvent event = getEvent(id);
+    event.getRegistrations().clear();
 
     boolean isRemoved = repository.remove(id);
 

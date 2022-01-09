@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {AEventsService} from "./services/a-events.service";
+import {AEventsSbService} from "./services/a-events-sb.service";
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,5 @@ import {AEventsService} from "./services/a-events.service";
 })
 export class AppComponent {
   title = 'my-first-app';
+
 }
