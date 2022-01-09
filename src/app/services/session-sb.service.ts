@@ -39,6 +39,7 @@ export class SessionSbService {
       token = token.replace("Bearer", "");
 
       sessionStorage.setItem("token",token);
+      sessionStorage.setItem("username", email.split("@")[0]);
 
       this.updateUserInformation();
     }, error => {

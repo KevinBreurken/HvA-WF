@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -15,14 +15,15 @@ import {Detail2Component} from './components/events/detail2/detail2.component';
 import {AEventsService} from "./services/a-events.service";
 import {Detail3Component} from "./components/events/detail3/detail3.component";
 import {RouterModule, Routes} from "@angular/router";
-import { ErrorComponent } from './components/mainpage/error/error.component';
-import { Overview4Component } from './components/events/overview4/overview4.component';
-import { Detail4Component } from './components/events/detail4/detail4.component';
+import {ErrorComponent} from './components/mainpage/error/error.component';
+import {Overview4Component} from './components/events/overview4/overview4.component';
+import {Detail4Component} from './components/events/detail4/detail4.component';
 import {Detail5Component} from "./components/events/detail5/detail5.component";
 import {Overview5Component} from "./components/events/overview5/overview5.component";
 import {AEventsSbService} from "./services/a-events-sb.service";
-import { HeaderSbComponent } from './components/mainpage/header-sb/header-sb.component';
-import { SignOnComponent } from './components/sign-on/sign-on.component';
+import {HeaderSbComponent} from './components/mainpage/header-sb/header-sb.component';
+import {SignOnComponent} from './components/sign-on/sign-on.component';
+import {AuthSbInterceptorService} from "./services/auth-sb-interceptor.service";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -58,15 +59,17 @@ const appRoutes: Routes = [
     HeaderSbComponent,
     SignOnComponent
   ],
-    imports: [
-        BrowserModule,
-        FormsModule,
-        NgbModule,
-        RouterModule.forRoot(appRoutes, {useHash: true}),
-        HttpClientModule,
-        ReactiveFormsModule
-    ],
-  providers: [AEventsService, AEventsSbService],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    NgbModule,
+    RouterModule.forRoot(appRoutes, {useHash: true}),
+    HttpClientModule,
+    ReactiveFormsModule
+  ],
+  providers: [AEventsService, AEventsSbService,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthSbInterceptorService, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
