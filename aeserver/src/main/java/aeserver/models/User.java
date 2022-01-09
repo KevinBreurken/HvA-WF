@@ -1,9 +1,8 @@
 package aeserver.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @Entity
@@ -15,6 +14,9 @@ public class User {
   private String email;
   private String hashedPassWord;
   private boolean admin;
+
+  @OneToMany(mappedBy = "organiser")
+  private List<ExternalEvent> externalEvents = new ArrayList<>();
 
   public User() {
   }
@@ -77,5 +79,13 @@ public class User {
 
   public void setAdmin(boolean admin) {
     this.admin = admin;
+  }
+
+  public List<ExternalEvent> getExternalEvents() {
+    return externalEvents;
+  }
+
+  public void setExternalEvents(List<ExternalEvent> externalEvents) {
+    this.externalEvents = externalEvents;
   }
 }

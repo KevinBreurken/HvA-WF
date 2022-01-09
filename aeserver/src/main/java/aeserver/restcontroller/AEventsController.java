@@ -2,6 +2,7 @@ package aeserver.restcontroller;
 
 import aeserver.exceptions.ResourceNotFoundException;
 import aeserver.models.AEvent;
+import aeserver.models.ExternalEvent;
 import aeserver.models.Registration;
 import aeserver.repositories.AEventsRepository;
 import aeserver.repositories.RegistrationsRepositoryJPA;
