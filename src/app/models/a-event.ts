@@ -6,6 +6,7 @@ export enum aEventStatus {
 
 export class AEvent {
 
+  static lastId = 0;
   id: number = -1;
   title: String = "new Event";
   start: Date = new Date();
@@ -35,7 +36,7 @@ export class AEvent {
 
   public static createRandomAEvent(): AEvent {
     let newEvent = new AEvent(
-      -1, "Test Title",
+      this.lastId, "Test Title",
       new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
       new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
       "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos eveniet ipsam iste iure labore laudantium maxime neque pariatur perferendis, ut?",
@@ -47,6 +48,7 @@ export class AEvent {
       newEvent.participationFee = Math.floor(Math.random() * 200);
       newEvent.maxParticipants = Math.floor(Math.random() * 1800);
     }
+    this.lastId++;
     return newEvent;
   }
 
