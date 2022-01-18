@@ -1,12 +1,10 @@
 package aeserver.restcontroller;
 
-import aeserver.exceptions.PreConditionFailedException;
 import aeserver.exceptions.ResourceNotFoundException;
 import aeserver.models.AEvent;
 import aeserver.models.ExternalEvent;
 import aeserver.models.User;
 import aeserver.repositories.AEventsRepository;
-import aeserver.repositories.AEventsRepositoryJpa;
 import aeserver.repositories.UserRepositoryJPA;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,37 +17,29 @@ import java.net.URI;
 public class UserController {
 
   private final UserRepositoryJPA repository;
+  private final AEventsRepository aEventsRepository;
 
-  public UserController(UserRepositoryJPA repository) {
+  public UserController(UserRepositoryJPA repository, AEventsRepository aEventsRepository) {
     this.repository = repository;
+    this.aEventsRepository = aEventsRepository;
   }
 
+  @CrossOrigin
   @PostMapping("users/{userId}/external-events")
-  public ResponseEntity<User> addExternalEvent(@PathVariable long userId) {
-    ExternalEvent aEvent = new ExternalEvent();
+  public ResponseEntity<User> addExternalEvent(@PathVariable long userId, @RequestBody ExternalEvent event) {
     User user = repository.findById(userId);
 
-    URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-      .buildAndExpand(userId).toUri();
-
     if (user == null)
-      throw new ResourceNotFoundException("User does not yet exist");
+      throw new ResourceNotFoundException("User does not exist");
 
-    user.getExternalEvents().add(aEvent);
-    repository.update(user);
+    if (event.getUserId() != userId)
+      throw new IllegalArgumentException("Arguments aren't valid");
+
+    aEventsRepository.save(event);
+
+    URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{userId}")
+      .buildAndExpand(user.getId()).toUri();
 
     return ResponseEntity.created(location).body(user);
-  }
-
-  @PutMapping("external-events/{eventId}")
-  public ResponseEntity<ExternalEvent> updateOrReplaceExternalEvent(@PathVariable long eventId) {
-    ExternalEvent externalEvent = repository.findExternalEvent(eventId);
-
-    if (externalEvent == null)
-      throw new ResourceNotFoundException("External event cannot be found");
-
-    externalEvent.setVisible(!externalEvent.isVisible());
-
-    return ResponseEntity.ok(externalEvent);
   }
 }

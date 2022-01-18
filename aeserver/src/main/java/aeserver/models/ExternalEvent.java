@@ -1,19 +1,22 @@
 package aeserver.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import java.util.Date;
 
 @Entity
 public class ExternalEvent extends AEvent {
   public boolean visible;
 
-  @ManyToOne
-  @JsonBackReference
-  private User organiser;
+  private long userId;
 
   public ExternalEvent() {
+  }
+
+  public ExternalEvent(String title, Date start, Date end, String description, boolean ticketed,
+                       double participationFee, double maxParticipants, String status, boolean visible, long userId) {
+    super(title, start, end, description, ticketed, participationFee, maxParticipants, status);
+    this.visible = visible;
+    this.userId = userId;
   }
 
   public boolean isVisible() {
@@ -24,11 +27,11 @@ public class ExternalEvent extends AEvent {
     this.visible = visible;
   }
 
-  public User getOrganiser() {
-    return organiser;
+    public long getUserId() {
+    return userId;
   }
 
-  public void setOrganiser(User organiser) {
-    this.organiser = organiser;
+  public void setUserId(long userId) {
+    this.userId = userId;
   }
 }

@@ -15,19 +15,17 @@ public class User {
   private String hashedPassWord;
   private boolean admin;
 
-  @OneToMany(mappedBy = "organiser")
-  private List<ExternalEvent> externalEvents = new ArrayList<>();
-
   public User() {
   }
 
   /**
    * Sets the email, password but also the name based upon the e-mailadres.
-   * @param email e-mailadres of the user
+   *
+   * @param email          e-mailadres of the user
    * @param hashedPassWord hashed password of the user
    */
   public User(String email, String hashedPassWord) {
-    this.id = Math.round(Math.random()*2000);
+    this.id = Math.round(Math.random() * 2000);
     this.name = email.split("@")[0];
     this.email = email;
     this.hashedPassWord = hashedPassWord;
@@ -81,11 +79,4 @@ public class User {
     this.admin = admin;
   }
 
-  public List<ExternalEvent> getExternalEvents() {
-    return externalEvents;
-  }
-
-  public void setExternalEvents(List<ExternalEvent> externalEvents) {
-    this.externalEvents = externalEvents;
-  }
 }

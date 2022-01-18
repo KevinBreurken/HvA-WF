@@ -28,6 +28,18 @@ public class AEventsController {
     this.registrationsRepositoryJPA = registrationsRepositoryJPA;
   }
 
+  @PutMapping("external-events/{eventId}")
+  public ResponseEntity<ExternalEvent> updateOrReplaceExternalEvent(@PathVariable long eventId, @RequestBody ExternalEvent newEvent) {
+    AEvent externalEvent = repository.findById(eventId);
+
+    if (externalEvent == null || !(externalEvent instanceof ExternalEvent))
+      throw new ResourceNotFoundException("External event cannot be found");
+
+    repository.update(newEvent);
+
+    return ResponseEntity.ok((ExternalEvent) externalEvent);
+  }
+
   @GetMapping("aevents")
   public List<AEvent> getAllAEvents(@RequestParam Optional<String> title, @RequestParam Optional<String> status, @RequestParam Optional<Integer> minRegistrations) throws Exception {
 

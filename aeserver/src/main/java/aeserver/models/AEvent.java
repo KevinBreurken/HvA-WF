@@ -7,6 +7,7 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @NamedQueries({
   @NamedQuery(name = "AEvent-get_all_events", query = "Select a From AEvent a"),
   @NamedQuery(name = "AEvent_find_by_title", query = "Select a From AEvent a where a.title = ?1"),
